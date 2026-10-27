@@ -1,50 +1,45 @@
 import type { Metadata } from "next";
-import { ArrowUpRight, MessageCircle, Phone } from "lucide-react";
+import { MessageSquare, Phone } from "lucide-react";
 import PageHeader from "@/components/sections/PageHeader";
+import { banners } from "@/data/banners";
 import FaqAccordion from "@/components/sections/FaqAccordion";
-import Newsletter from "@/components/sections/Newsletter";
+import FeatureCard from "@/components/cards/FeatureCard";
 import { site } from "@/data/site";
 
 export const metadata: Metadata = { title: "FAQ" };
 
 const contacts = [
   { icon: Phone, title: "Contact with Us", label: site.phone, href: site.phoneHref },
-  { icon: MessageCircle, title: "Send a Message", label: site.email, href: site.emailHref },
+  { icon: MessageSquare, title: "Send a Message", label: site.email, href: site.emailHref },
 ];
 
 export default function FaqPage() {
   return (
     <>
-      <PageHeader title="FAQs" crumbs={[{ label: "FAQ" }]} />
-      <section className="section-space">
-        <div className="container-x grid gap-12 lg:grid-cols-12">
-          <div className="lg:col-span-8">
+      <PageHeader image={banners.faq} title="FAQs" />
+
+      <section className="section-space overflow-hidden">
+        <div className="container-x">
+          <div className="mx-auto xl:w-2/3">
             <FaqAccordion />
-          </div>
-          <div className="space-y-6 lg:col-span-4">
-            {contacts.map(({ icon: Icon, title, label, href }) => (
-              <div key={title} className="rounded-3xl bg-smoke p-8">
-                <span className="grid size-16 place-items-center rounded-full bg-theme">
-                  <Icon className="size-7" />
-                </span>
-                <h3 className="mt-6 text-2xl">{title}</h3>
-                <p className="mt-3 text-title/60">
-                  A good website tells a story that makes users fully immerse
-                  themselves.
-                </p>
-                <a
-                  href={href}
-                  className="group mt-6 inline-flex items-center gap-2 font-medium hover:underline"
-                >
-                  {label}
-                  <ArrowUpRight className="size-4 transition-transform group-hover:rotate-45" />
-                </a>
-              </div>
-            ))}
           </div>
         </div>
       </section>
-      <Newsletter />
+
+      <section className="pb-20 lg:pb-[140px]">
+        <div className="container-x grid gap-6 xl:grid-cols-2">
+          {contacts.map(({ icon: Icon, title, label, href }) => (
+            <FeatureCard
+              key={title}
+              icon={<Icon className="size-10 fill-title" strokeWidth={1.5} />}
+              title={title}
+              text="Good website tells a story that will make users fully immerse themselves operating"
+              linkLabel={label}
+              href={href}
+            />
+          ))}
+        </div>
+      </section>
     </>
   );
 }

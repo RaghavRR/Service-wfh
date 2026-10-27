@@ -44,13 +44,18 @@ const icons: Record<SocialName, (p: IconProps) => React.ReactElement> = {
 export default function SocialIcons({
   className = "",
   itemClass = "border-white/20 text-white hover:bg-theme hover:text-title hover:border-theme",
+  plain = false,
+  only,
 }: {
   className?: string;
   itemClass?: string;
+  plain?: boolean;
+  only?: SocialName[];
 }) {
+  const list = only ? socials.filter((s) => only.includes(s.name)) : socials;
   return (
-    <div className={`flex gap-3 ${className}`}>
-      {socials.map(({ name, href }) => {
+    <div className={`flex ${plain ? "gap-6" : "gap-3"} ${className}`}>
+      {list.map(({ name, href }) => {
         const Icon = icons[name];
         return (
           <a
@@ -59,9 +64,13 @@ export default function SocialIcons({
             target="_blank"
             rel="noopener noreferrer"
             aria-label={name}
-            className={`grid size-10 place-items-center rounded-full border transition-colors duration-300 ${itemClass}`}
+            className={
+              plain
+                ? "text-title transition-colors hover:text-success"
+                : `grid size-10 place-items-center rounded-full border transition-colors duration-300 ${itemClass}`
+            }
           >
-            <Icon className="size-4" />
+            <Icon className={plain ? "size-5" : "size-4"} />
           </a>
         );
       })}

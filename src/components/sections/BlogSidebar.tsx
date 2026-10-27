@@ -1,20 +1,13 @@
 import Image from "next/image";
 import Link from "next/link";
-import { ChevronRight, Search } from "lucide-react";
+import { Clock, Search } from "lucide-react";
 import { blogCategories, blogs, blogTags } from "@/data/blogs";
 
-function Widget({ title, children }: { title: string; children: React.ReactNode }) {
-  return (
-    <div className="rounded-3xl bg-smoke p-8">
-      <h3 className="mb-6 text-xl">{title}</h3>
-      {children}
-    </div>
-  );
-}
+const widgetTitle = "mb-[30px] text-2xl font-semibold tracking-[-0.48px]";
 
 export default function BlogSidebar() {
   return (
-    <aside className="space-y-8">
+    <aside className="space-y-[60px]">
       <form action="/blog-2" className="relative">
         <label htmlFor="blog-search" className="sr-only">
           Search
@@ -23,43 +16,34 @@ export default function BlogSidebar() {
           id="blog-search"
           name="q"
           type="search"
-          placeholder="Search..."
-          className="w-full rounded-full bg-smoke py-5 pl-7 pr-16 outline-none focus:ring-2 focus:ring-title"
+          placeholder="Search . . ."
+          className="h-[60px] w-full border-0 border-b border-title bg-transparent pr-[60px] text-lg outline-none placeholder:text-title/50"
         />
-        <button
-          type="submit"
-          aria-label="Search"
-          className="absolute right-2 top-1/2 grid size-12 -translate-y-1/2 place-items-center rounded-full bg-theme"
-        >
-          <Search className="size-5" />
+        <button type="submit" aria-label="Search" className="absolute right-0 top-1/2 -translate-y-1/2">
+          <Search className="size-5" strokeWidth={2.2} />
         </button>
       </form>
 
-      <Widget title="Categories">
-        <ul className="space-y-1">
+      <div>
+        <h4 className={widgetTitle}>Categories</h4>
+        <ul className="space-y-[17px]">
           {blogCategories.map((c) => (
             <li key={c.name}>
-              <Link
-                href="/blog-2"
-                className="group flex items-center justify-between rounded-xl px-3 py-2 text-title/70 transition-colors hover:bg-white hover:text-title"
-              >
-                <span className="flex items-center gap-2">
-                  <ChevronRight className="size-4 transition-transform group-hover:translate-x-1" />
-                  {c.name}
-                </span>
-                <span>({c.count})</span>
+              <Link href="/blog-2" className="text-lg transition-colors hover:text-success">
+                {c.name} ({c.count})
               </Link>
             </li>
           ))}
         </ul>
-      </Widget>
+      </div>
 
-      <Widget title="Recent Posts">
-        <ul className="space-y-6">
+      <div>
+        <h4 className={widgetTitle}>Recent Posts</h4>
+        <ul className="space-y-[30px]">
           {blogs.slice(0, 3).map((b) => (
             <li key={b.id}>
-              <Link href={`/blog-details/${b.id}`} className="group flex gap-4">
-                <span className="relative size-20 shrink-0 overflow-hidden rounded-2xl">
+              <Link href={`/blog-details/${b.id}`} className="group flex items-center gap-5">
+                <span className="relative aspect-square w-20 flex-none overflow-hidden">
                   <Image
                     src={b.image}
                     alt=""
@@ -70,30 +54,34 @@ export default function BlogSidebar() {
                   />
                 </span>
                 <span>
-                  <span className="text-sm text-title/50">{b.date}</span>
-                  <span className="mt-1 line-clamp-2 block font-title text-[15px] leading-snug group-hover:text-title/60">
+                  <span className="mb-1.5 block font-title text-base font-semibold leading-snug">
                     {b.title}
+                  </span>
+                  <span className="flex items-center gap-1.5 text-sm">
+                    <Clock className="size-3.5" /> Sep 15, 2024
                   </span>
                 </span>
               </Link>
             </li>
           ))}
         </ul>
-      </Widget>
+      </div>
 
-      <Widget title="Tags">
-        <div className="flex flex-wrap gap-2">
+      <div>
+        <h4 className={widgetTitle}>Tags</h4>
+        <ul className="flex flex-wrap gap-x-6 gap-y-[13px] overflow-hidden">
           {blogTags.map((t) => (
-            <Link
+            <li
               key={t}
-              href="/blog-2"
-              className="rounded-full bg-white px-4 py-2 text-sm transition-colors hover:bg-theme"
+              className="relative after:absolute after:-right-3.5 after:top-1/2 after:h-4 after:w-0.5 after:-translate-y-1/2 after:bg-title last:after:hidden"
             >
-              {t}
-            </Link>
+              <Link href="/blog-2" className="text-lg hover:text-success">
+                {t}
+              </Link>
+            </li>
           ))}
-        </div>
-      </Widget>
+        </ul>
+      </div>
     </aside>
   );
 }

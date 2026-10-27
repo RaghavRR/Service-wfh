@@ -8,44 +8,27 @@ export default function FaqAccordion() {
   const [open, setOpen] = useState(0);
 
   return (
-    <div className="space-y-4">
+    <div>
       {faqs.map((f, i) => {
         const isOpen = open === i;
         return (
-          <div
-            key={f.q}
-            className={`rounded-3xl border transition-colors duration-300 ${
-              isOpen ? "border-title bg-title text-white" : "border-line"
-            }`}
-          >
+          <div key={f.q} className="relative border-b-2 border-title py-[30px] first:border-t-2">
             <button
               type="button"
               onClick={() => setOpen(isOpen ? -1 : i)}
               aria-expanded={isOpen}
-              className="flex w-full items-center justify-between gap-6 p-6 text-left lg:p-8"
+              className="flex w-full items-start justify-between gap-6 text-left font-title text-xl font-semibold"
             >
-              <span
-                className={`font-title text-lg lg:text-xl ${isOpen ? "text-white" : ""}`}
-              >
-                {f.q}
-              </span>
-              <span
-                className={`grid size-10 shrink-0 place-items-center rounded-full ${
-                  isOpen ? "bg-theme text-title" : "bg-smoke"
-                }`}
-              >
-                {isOpen ? <Minus className="size-5" /> : <Plus className="size-5" />}
-              </span>
+              {f.q}
+              {isOpen ? (
+                <Minus className="mt-0.5 size-5 flex-none" strokeWidth={3} />
+              ) : (
+                <Plus className="mt-0.5 size-5 flex-none" strokeWidth={3} />
+              )}
             </button>
-            <div
-              className={`grid transition-all duration-300 ${
-                isOpen ? "grid-rows-[1fr]" : "grid-rows-[0fr]"
-              }`}
-            >
-              <p className="overflow-hidden px-6 text-white/70 lg:px-8">
-                <span className="block pb-8">{f.a}</span>
-              </p>
-            </div>
+            {isOpen && (
+              <p className="mb-4 mt-3 animate-fade-in text-base sm:text-lg">{f.a}</p>
+            )}
           </div>
         );
       })}

@@ -58,7 +58,6 @@ export const services: Service[] = [
   },
 ];
 
-// Order used for the numbered list on the home page
 export const homeServiceIds = [1, 4, 2, 3];
 
 export const getService = (id: number) => services.find((s) => s.id === id);

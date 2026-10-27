@@ -1,25 +1,44 @@
-import Button from "@/components/ui/Button";
+import { ArrowLink, RollLabel } from "@/components/ui/Button";
 
-export default function ErrorContent() {
+export default function ErrorContent({
+  code = "404",
+  title = "Look Like You’re Lost",
+  text = "The link you followed probably broken or the page has been removed",
+  onRetry,
+}: {
+  code?: string;
+  title?: string;
+  text?: string;
+  onRetry?: () => void;
+}) {
   return (
-    <section className="section-space">
+    <section
+      data-hide-footer
+      className="flex h-[calc(100svh-80px)] items-center justify-center overflow-hidden py-6 sm:h-[calc(100svh-90px)] lg:h-[calc(100svh-106px)]"
+    >
       <div className="container-x text-center">
         <p
-          className="select-none font-title text-[120px] font-bold leading-none text-transparent sm:text-[220px] lg:text-[300px]"
-          style={{ WebkitTextStroke: "2px var(--color-title)" }}
+          className="select-none font-title text-[min(26vw,30svh,330px)] font-bold leading-none tracking-tight"
           aria-hidden
         >
-          4<span className="text-theme [-webkit-text-stroke:0]">0</span>4
+          {code}
         </p>
-        <h1 className="mt-6 text-[32px] sm:text-[48px]">
-          Look Like You&rsquo;re Lost
+        <h1 className="mt-[3svh] text-[min(30px,5svh)] font-semibold leading-[1.2] tracking-tight sm:text-[min(45px,6svh)] xl:text-[min(60px,7svh)]">
+          {title}
         </h1>
-        <p className="mx-auto mt-4 max-w-md text-title/60">
-          The link you followed is probably broken or the page has been removed.
-        </p>
-        <Button href="/" variant="dark" arrow className="mt-10">
-          Back to home
-        </Button>
+        <p className="mt-[2svh] text-base xl:text-lg">{text}</p>
+        <div className="mt-[4svh] flex flex-wrap items-center justify-center gap-10">
+          {onRetry && (
+            <button
+              type="button"
+              onClick={onRetry}
+              className="group relative inline-flex pb-1.5 font-title text-sm font-semibold uppercase after:absolute after:inset-x-0 after:bottom-0 after:h-0.5 after:bg-current"
+            >
+              <RollLabel>Try again</RollLabel>
+            </button>
+          )}
+          <ArrowLink href="/">Back to home</ArrowLink>
+        </div>
       </div>
     </section>
   );

@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
 import { ChevronRight } from "lucide-react";
 import PageHeader from "@/components/sections/PageHeader";
+import { banners } from "@/data/banners";
 import BlogSidebar from "@/components/sections/BlogSidebar";
-import Newsletter from "@/components/sections/Newsletter";
 import BlogCard from "@/components/cards/BlogCard";
 import { blogs } from "@/data/blogs";
 
@@ -11,7 +11,7 @@ export const metadata: Metadata = { title: "Blog" };
 export default function BlogPage() {
   return (
     <>
-      <PageHeader title="Blog" crumbs={[{ label: "Blog" }]} />
+      <PageHeader image={banners.blog} title="Blog" />
       <section className="section-space">
         <div className="container-x grid gap-14 lg:grid-cols-12">
           <div className="lg:col-span-8">
@@ -47,7 +47,6 @@ export default function BlogPage() {
           </div>
         </div>
       </section>
-      <Newsletter />
     </>
   );
 }

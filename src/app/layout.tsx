@@ -1,7 +1,9 @@
 import type { Metadata } from "next";
 import { Poppins, Unbounded } from "next/font/google";
 import Header from "@/components/layout/Header";
-import Footer from "@/components/layout/Footer";
+import { HomeFooter, InnerFooter } from "@/components/layout/Footer";
+import FooterSwitch from "@/components/layout/FooterSwitch";
+import ScrollTop from "@/components/layout/ScrollTop";
 import { site } from "@/data/site";
 import "./globals.css";
 
@@ -31,7 +33,10 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       <body>
         <Header />
         <main>{children}</main>
-        <Footer />
+        <div className="site-footer">
+          <FooterSwitch home={<HomeFooter />} inner={<InnerFooter />} />
+        </div>
+        <ScrollTop />
       </body>
     </html>
   );

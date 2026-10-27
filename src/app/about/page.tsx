@@ -1,89 +1,82 @@
 import type { Metadata } from "next";
 import Image from "next/image";
+import Link from "next/link";
 import PageHeader from "@/components/sections/PageHeader";
+import { banners } from "@/data/banners";
 import Counters from "@/components/sections/Counters";
-import Cta from "@/components/sections/Cta";
+import ContactSection from "@/components/sections/ContactSection";
 import ClientLogos from "@/components/sections/ClientLogos";
-import Newsletter from "@/components/sections/Newsletter";
 import TeamCard from "@/components/cards/TeamCard";
-import SectionTitle from "@/components/ui/SectionTitle";
+import SectionTitle, { secTitleClass } from "@/components/ui/SectionTitle";
 import { milestones } from "@/data/misc";
 import { team } from "@/data/team";
-import whyImg from "../../../public/images/about-2.jpg";
+import whyImg from "../../../public/images/whyImg.jpg";
+import Reveal from "@/components/ui/Reveal";
 
 export const metadata: Metadata = { title: "About" };
 
 export default function AboutPage() {
   return (
     <>
-      <PageHeader title="About" crumbs={[{ label: "About" }]} />
+      <PageHeader image={banners.about} title="About" />
 
-      <section className="section-space">
-        <div className="container-x grid items-center gap-12 lg:grid-cols-2 lg:gap-20">
-          <div className="relative aspect-9/11 overflow-hidden rounded-[32px]">
-            <Image
-              src={whyImg}
-              alt="Our team at work"
-              fill
-              placeholder="blur"
-              sizes="(min-width: 1024px) 50vw, 100vw"
-              className="object-cover"
-            />
-          </div>
+      <section className="section-space overflow-hidden">
+        <div className="container-x">
           <Counters />
         </div>
       </section>
 
-      <section className="section-space bg-smoke">
-        <div className="container-x grid gap-12 lg:grid-cols-2 lg:gap-20">
-          <SectionTitle
-            subtitle="Who we are"
-            title="Passionate About Creating Quality Design"
+      <section className="relative bg-theme pb-20 lg:mt-[100px] lg:py-[140px]">
+        <Reveal from="right" className="relative aspect-4/3 w-full lg:absolute lg:right-0 lg:top-[-100px] lg:bottom-[140px] lg:aspect-auto lg:w-[42%] 3xl:w-[44%]">
+          <Image
+            src={whyImg}
+            alt="Our team at work"
+            fill
+            placeholder="blur"
+            sizes="(min-width: 992px) 44vw, 100vw"
+            className="object-cover"
           />
-          <div className="space-y-10">
-            <div>
-              <h3 className="text-2xl">We Love What We Do</h3>
-              <p className="mt-4 text-title/70">
-                We are a team of strategists, designers and developers who
-                believe great work comes from curiosity and care. Every brief is
-                a chance to learn something new about our clients and their
-                customers.
-              </p>
-            </div>
-            <div>
-              <h3 className="text-2xl">Why Work With Us</h3>
-              <p className="mt-4 text-title/70">
-                Over the years we have partnered with more than 36 industries —
-                from fintech to fashion. We bring that experience to every
-                project, with clear communication, honest timelines and results
-                you can measure.
-              </p>
-            </div>
+        </Reveal>
+        <div className="container-x pt-20 lg:pt-0">
+          <div className="lg:w-1/2 lg:pr-3">
+            <h2 className={`mb-[35px] xl:mb-9 2xl:mb-[45px] ${secTitleClass}`}>
+              Passionate About Creating Quality Design
+            </h2>
+            <h4 className="mb-[15px] text-[22px] font-semibold xl:text-2xl">We Love What We Do</h4>
+            <p className="text-base 2xl:text-lg">
+              We are a creative agency working with brands building insightful
+              strategy, creating unique designs and crafting value
+            </p>
+            <h4 className="mb-[15px] mt-[35px] text-[22px] font-semibold xl:text-2xl">Why Work With Us</h4>
+            <p className="text-base 2xl:text-lg">
+              If you ask our clients what it&rsquo;s like working with us,
+              they&rsquo;ll talk about how much we care about their success. For
+              us, real relationships fuel real success. We love building brands
+            </p>
           </div>
         </div>
       </section>
 
-      <section className="section-space">
+      <section className="section-space overflow-hidden">
         <div className="container-x">
-          <SectionTitle
-            subtitle="Awards"
-            title="Milestones & Recognition"
-            className="mb-14"
-          />
-          <ul className="border-t border-line">
+          <ul className="mx-auto lg:w-5/6">
             {milestones.map((m) => (
               <li
                 key={m.title}
-                className="group grid gap-3 border-b border-line py-8 transition-colors hover:bg-smoke md:grid-cols-12 md:items-center md:px-6"
+                className="group border-b-2 border-title pb-[31px] pt-[26px] first:border-t-2 md:flex"
               >
-                <span className="font-title text-xl text-title/40 md:col-span-2">
+                <span className="font-title text-sm font-semibold tracking-[-0.14px] transition-transform duration-400 md:group-hover:translate-x-6">
                   {m.year}
                 </span>
-                <h3 className="text-xl md:col-span-4 lg:text-2xl">{m.title}</h3>
-                <p className="text-title/60 md:col-span-4">
-                  Recognised for outstanding creative and technical work.
-                </p>
-                <span className="w-fit rounded-full bg-theme px-4 py-1 text-sm md:col-span-2 md:justify-self-end">
+                <div className="mb-5 mt-2.5 transition-transform duration-400 md:my-0 md:ml-[50px] md:group-hover:translate-x-6 xl:ml-[100px]">
+                  <h4 className="mb-[3px] text-[22px] font-semibold sm:text-2xl">
+                    <Link href="/about">{m.title}</Link>
+                  </h4>
+                  <p className="text-sm sm:text-base lg:text-lg">
+                    We bring to life the most complex projects, specialize
+                  </p>
+                </div>
+                <span className="block font-title text-sm font-semibold uppercase tracking-[-0.14px] transition-transform duration-400 md:ml-auto md:group-hover:-translate-x-6">
                   {m.role}
                 </span>
               </li>
@@ -92,14 +85,14 @@ export default function AboutPage() {
         </div>
       </section>
 
-      <section className="section-space bg-smoke">
+      <section className="overflow-hidden pb-20 lg:pb-[140px]">
         <div className="container-x">
           <SectionTitle
-            subtitle="Our team"
+            center
             title="Our Team Behind The Studio"
-            className="mb-16 max-w-2xl"
+            className="mb-[33px] lg:mb-[43px] xl:mb-12"
           />
-          <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
+          <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
             {team.slice(0, 4).map((m) => (
               <TeamCard key={m.name} member={m} />
             ))}
@@ -107,9 +100,8 @@ export default function AboutPage() {
         </div>
       </section>
 
-      <Cta />
+      <ContactSection />
       <ClientLogos />
-      <Newsletter />
     </>
   );
 }

@@ -43,9 +43,9 @@ export const milestones = [
 ];
 
 export const counters = [
-  { value: 12, label: "Years of Experience" },
-  { value: 850, label: "Successful Projects" },
-  { value: 600, label: "Satisfied Customers" },
+  { value: 26, label: "Years of Experience" },
+  { value: 347, label: "Successful Projects" },
+  { value: 139, label: "Satisfied Customers" },
 ];
 
 export const clients = [

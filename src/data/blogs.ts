@@ -1,7 +1,7 @@
 import type { StaticImageData } from "next/image";
-import b1 from "../../public/images/blog-1.jpg";
-import b2 from "../../public/images/blog-2.jpg";
-import b3 from "../../public/images/blog-3.jpg";
+import b1 from "../../public/images/blog-1.png";
+import b2 from "../../public/images/blog-2.png";
+import b3 from "../../public/images/blog-3.png";
 import b4 from "../../public/images/blog-4.jpg";
 import b5 from "../../public/images/blog-5.jpg";
 import b6 from "../../public/images/blog-6.jpg";

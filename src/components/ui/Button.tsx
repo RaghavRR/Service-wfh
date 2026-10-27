@@ -11,16 +11,9 @@ const variants: Record<Variant, string> = {
     "border border-title text-title hover:bg-title hover:text-white bg-transparent",
 };
 
-export const btnClass = (
-  variant: Variant = "theme",
-  className = "",
-  square = false,
-) =>
-  `group inline-flex items-center justify-center gap-3 font-title font-medium uppercase tracking-wide transition-colors duration-300 ${
-    square ? "px-15 py-8 text-base font-semibold" : "rounded-full px-8 py-4 text-[13px]"
-  } ${variants[variant]} ${className}`;
+export const btnClass = (variant: Variant = "theme", className = "") =>
+  `group inline-flex items-center justify-center gap-3 px-10 py-[21.5px] font-title text-sm font-semibold uppercase transition-colors duration-300 ${variants[variant]} ${className}`;
 
-/** Label rendered twice so it can roll up on hover */
 export function RollLabel({ children }: { children: string }) {
   return (
     <span className="roll">
@@ -35,8 +28,6 @@ type ButtonProps = {
   children: string;
   variant?: Variant;
   arrow?: boolean;
-  /** Sharp-cornered, larger button (hero style) */
-  square?: boolean;
   className?: string;
 };
 
@@ -45,7 +36,6 @@ export default function Button({
   children,
   variant = "theme",
   arrow = false,
-  square = false,
   className,
 }: ButtonProps) {
   const isExternal = /^(https?:|mailto:|tel:)/.test(href);
@@ -62,7 +52,7 @@ export default function Button({
     return (
       <a
         href={href}
-        className={btnClass(variant, className, square)}
+        className={btnClass(variant, className)}
         {...(href.startsWith("http") && {
           target: "_blank",
           rel: "noopener noreferrer",
@@ -74,13 +64,12 @@ export default function Button({
   }
 
   return (
-    <Link href={href} className={btnClass(variant, className, square)}>
+    <Link href={href} className={btnClass(variant, className)}>
       {content}
     </Link>
   );
 }
 
-/** Small underlined text link with arrow, used on cards */
 export function ArrowLink({
   href,
   children,
@@ -90,13 +79,14 @@ export function ArrowLink({
   children: string;
   className?: string;
 }) {
-  const cls = `group inline-flex items-center gap-2 font-title text-xs font-medium uppercase tracking-wider ${className}`;
+  const cls = `group relative inline-flex items-center gap-2.5 pb-1.5 font-title text-sm font-semibold uppercase after:absolute after:inset-x-0 after:bottom-0 after:h-0.5 after:bg-current ${className}`;
   const content = (
     <>
       <RollLabel>{children}</RollLabel>
-      <span className="grid size-8 place-items-center rounded-full bg-theme text-title transition-transform duration-300 group-hover:rotate-45">
-        <ArrowUpRight className="size-4" />
-      </span>
+      <ArrowUpRight
+        className="size-4 transition-transform duration-300 group-hover:rotate-45"
+        strokeWidth={2.5}
+      />
     </>
   );
 

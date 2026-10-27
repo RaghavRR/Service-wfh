@@ -1,22 +1,23 @@
+import { RollLabel } from "@/components/ui/Button";
 import { clients } from "@/data/misc";
 
-/** Text wordmarks standing in for client logos, in an infinite marquee */
 export default function ClientLogos() {
-  const row = [...clients, ...clients];
   return (
-    <section className="overflow-hidden border-y border-line py-14">
-      <ul className="flex w-max animate-marquee gap-20 hover:[animation-play-state:paused]">
-        {row.map((name, i) => (
-          <li
-            key={i}
-            aria-hidden={i >= clients.length}
-            className="flex items-center gap-3 font-title text-3xl font-semibold text-title/25 transition-colors hover:text-title"
-          >
-            <span className="size-3 rotate-45 bg-current" />
-            {name}
-          </li>
-        ))}
-      </ul>
+    <section className="section-space overflow-hidden">
+      <div className="container-x">
+        <ul className="ml-0.5 mt-0.5 grid grid-cols-4 xl:mx-auto xl:max-w-[736px] 2xl:max-w-[856px]">
+          {clients.map((name) => (
+            <li key={name} className="-ml-0.5 -mt-0.5 border-2 border-title">
+              <a
+                href="#"
+                className="group flex h-[78px] items-center justify-center font-title text-[11px] font-bold xs:h-[98px] xs:text-xs sm:text-base md:h-32 md:text-lg lg:h-[148px] lg:text-2xl"
+              >
+                <RollLabel>{name}</RollLabel>
+              </a>
+            </li>
+          ))}
+        </ul>
+      </div>
     </section>
   );
 }

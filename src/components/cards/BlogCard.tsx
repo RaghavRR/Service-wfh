@@ -15,7 +15,7 @@ export default function BlogCard({
     <article className="group/card">
       <Link
         href={href}
-        className="relative block aspect-4/3 overflow-hidden rounded-3xl bg-smoke"
+        className="relative block aspect-4/3 overflow-hidden bg-smoke"
       >
         <Image
           src={blog.image}

@@ -2,16 +2,20 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { ArrowLeft, ArrowRight, Calendar, Folder, Quote, Reply, User } from "lucide-react";
-import PageHeader from "@/components/sections/PageHeader";
+import { ArrowLeft, ArrowRight } from "lucide-react";
+import Breadcrumb from "@/components/sections/Breadcrumb";
 import BlogSidebar from "@/components/sections/BlogSidebar";
 import CommentForm from "@/components/sections/CommentForm";
-import Newsletter from "@/components/sections/Newsletter";
+import { ArrowLink } from "@/components/ui/Button";
+import Reveal from "@/components/ui/Reveal";
 import SocialIcons from "@/components/ui/SocialIcons";
 import { blogs, getBlog } from "@/data/blogs";
 import { team } from "@/data/team";
 import details1 from "../../../../public/images/blog-details-1.jpg";
 import details2 from "../../../../public/images/blog-details-2.jpg";
+import QuoteIcon from "@/components/ui/QuoteIcon";
+
+export const dynamicParams = false;
 
 export function generateStaticParams() {
   return blogs.map((b) => ({ id: String(b.id) }));
@@ -28,7 +32,7 @@ const comments = [
   {
     name: "Parker Strong",
     avatar: team[4].image,
-    text: "Great read! The point about keeping the checkout flow short really resonated with our team — we're testing it next sprint.",
+    text: "Great read! The point about keeping the checkout flow short really resonated with our team, and we are testing it next sprint.",
     reply: false,
   },
   {
@@ -38,6 +42,9 @@ const comments = [
     reply: true,
   },
 ];
+
+const para = "mb-5 text-lg";
+
 
 export default async function BlogDetailsPage({
   params,
@@ -52,185 +59,177 @@ export default async function BlogDetailsPage({
 
   return (
     <>
-      <PageHeader
-        title="Blog Details"
-        crumbs={[{ label: "Blog", href: "/blog-2" }, { label: blog.title }]}
+      <Breadcrumb
+        items={[
+          { label: "Home", href: "/" },
+          { label: "Blog", href: "/blog-2" },
+          { label: blog.title },
+        ]}
       />
 
-      <section className="section-space">
-        <div className="container-x grid gap-14 lg:grid-cols-12">
-          <article className="min-w-0 lg:col-span-8">
-            <div className="relative aspect-16/10 overflow-hidden rounded-[32px]">
+      <section className="section-space overflow-hidden">
+        <div className="container-x flex flex-col gap-y-20 lg:flex-row">
+          <article className="min-w-0 lg:w-[67.5%] lg:pr-3 xl:w-[70.5%]">
+            <Reveal from="top" className="relative mb-11 aspect-[856/500] min-h-[250px] overflow-hidden">
               <Image
                 src={blog.image}
                 alt={blog.title}
                 fill
                 preload
                 placeholder="blur"
-                sizes="(min-width: 1024px) 66vw, 100vw"
+                sizes="(min-width: 992px) 70vw, 100vw"
                 className="object-cover"
               />
-            </div>
+            </Reveal>
 
-            <div className="mt-8 flex flex-wrap gap-x-8 gap-y-3 text-title/60">
-              <span className="flex items-center gap-2">
-                <Calendar className="size-4" /> {blog.date}
-              </span>
-              <span className="flex items-center gap-2">
-                <Folder className="size-4" /> {blog.category}
-              </span>
-              <span className="flex items-center gap-2">
-                <User className="size-4" /> by {blog.author}
-              </span>
-            </div>
+            <ul className="mb-[15px] flex flex-wrap items-center gap-x-7 gap-y-[15px] text-lg">
+              {[blog.date, blog.category, `by ${blog.author}`].map((m, i) => (
+                <li
+                  key={m}
+                  className={i > 0 ? "relative before:absolute before:-left-[15px] before:top-1/2 before:size-1 before:-translate-y-1/2 before:rounded-full before:bg-title" : ""}
+                >
+                  {m}
+                </li>
+              ))}
+            </ul>
 
-            <h2 className="mt-6 text-[28px] leading-tight sm:text-[40px]">
+            <h2 className="mb-10 text-[28px] font-semibold capitalize leading-[1.208] md:text-[32px] xl:text-5xl">
               {blog.title}
             </h2>
 
-            <div className="prose-blog mt-6">
-              <p>
-                Great design is more than good looks — it is a set of decisions
-                that make it easier for people to find what they need and act on
-                it. In this article we share the lessons we have learned from
-                dozens of e-commerce launches.
-              </p>
-              <p>
-                Start with clarity. Every page should answer three questions in
-                seconds: what is this, why should I care, and what do I do next?
-                When those answers are obvious, conversion follows.
-              </p>
-            </div>
+            <p className={para}>
+              Great design is more than good looks: it is a set of decisions
+              that make it easier for people to find what they need and act on
+              it. In this article we share the lessons we have learned from
+              dozens of e-commerce launches.
+            </p>
+            <p className={para}>
+              Start with clarity. Every page should answer three questions in
+              seconds: what is this, why should I care, and what do I do next?
+              When those answers are obvious, conversion follows.
+            </p>
 
-            <div className="relative my-10 aspect-16/9 overflow-hidden rounded-3xl">
-              <Image
-                src={details1}
-                alt=""
-                fill
-                placeholder="blur"
-                sizes="(min-width: 1024px) 66vw, 100vw"
-                className="object-cover"
-              />
-            </div>
-
-            <blockquote className="my-10 rounded-3xl bg-title p-8 text-white sm:p-12">
-              <Quote className="size-12 fill-theme text-theme" />
-              <p className="mt-6 font-title text-xl leading-relaxed sm:text-2xl">
-                It&apos;s a pleasure working with this team. They understood our
-                brand guidelines and applied them consistently in all our
-                marketing communications.
+            <blockquote className="my-10 sm:flex sm:items-start sm:gap-6">
+              <QuoteIcon className="mb-5 sm:mb-0" />
+              <p className="text-lg capitalize leading-[1.583] tracking-[-0.48px] md:text-2xl">
+                &ldquo;It&rsquo;s a pleasure working with this team. They
+                understood our brand positioning guidelines and translated them
+                beautifully and consistently into our ongoing marketing
+                comms&rdquo;
               </p>
-              <cite className="mt-6 block not-italic text-theme">
-                — Daniyel Karlos
-              </cite>
             </blockquote>
 
-            <div className="prose-blog">
-              <h3>Keep pushing the boundaries</h3>
-              <p>
-                Speed, accessibility and trust signals matter as much as the
-                visuals. Optimise images, keep the checkout short and show real
-                reviews. Small details add up to big results.
-              </p>
+            <p className={para}>
+              Speed, accessibility and trust signals matter as much as the
+              visuals. Optimise images, keep the checkout short and show real
+              reviews. Small details add up to big results.
+            </p>
+
+            <div className="my-10 grid gap-[30px] sm:grid-cols-2 sm:gap-6">
+              {[details1, details2].map((img, i) => (
+                <div key={i} className="relative aspect-[416/300] overflow-hidden">
+                  <Image
+                    src={img}
+                    alt=""
+                    fill
+                    placeholder="blur"
+                    sizes="(min-width: 992px) 35vw, (min-width: 576px) 50vw, 100vw"
+                    className="object-cover"
+                  />
+                </div>
+              ))}
             </div>
 
-            <div className="relative my-10 aspect-16/9 overflow-hidden rounded-3xl">
-              <Image
-                src={details2}
-                alt=""
-                fill
-                placeholder="blur"
-                sizes="(min-width: 1024px) 66vw, 100vw"
-                className="object-cover"
-              />
-            </div>
+            <p className={para}>
+              Test with real users before you launch. A single afternoon of
+              watching people shop on your site will reveal more than weeks of
+              guessing in a meeting room.
+            </p>
+            <p className={para}>
+              Always ready to push the boundaries, we keep experimenting with
+              new ideas so every store we build is faster, clearer and more
+              enjoyable to use.
+            </p>
 
-            <div className="flex flex-col justify-between gap-6 border-y border-line py-8 sm:flex-row sm:items-center">
-              <div className="flex flex-wrap items-center gap-2">
-                <span className="mr-2 font-title">Tags:</span>
+            <div className="mt-[35px] flex flex-col gap-5 border-b-2 border-title pb-11 md:flex-row md:items-center md:justify-between">
+              <ul className="flex flex-wrap gap-x-6 gap-y-[13px]">
                 {["Marketing", "Brand", "Contemporary"].map((t) => (
-                  <Link
+                  <li
                     key={t}
-                    href="/blog-2"
-                    className="rounded-full bg-smoke px-4 py-1.5 text-sm hover:bg-theme"
+                    className="relative after:absolute after:-right-3.5 after:top-1/2 after:h-4 after:w-0.5 after:-translate-y-1/2 after:bg-title last:after:hidden"
                   >
-                    {t}
-                  </Link>
+                    <Link href="/blog-2" className="text-lg hover:text-success">
+                      {t}
+                    </Link>
+                  </li>
                 ))}
-              </div>
-              <div className="flex items-center gap-3">
-                <span className="font-title">Share:</span>
-                <SocialIcons itemClass="border-line text-title hover:bg-theme hover:border-theme" />
+              </ul>
+              <div className="flex items-center gap-2.5">
+                <span className="mr-2.5 text-lg">Share:</span>
+                <SocialIcons plain only={["facebook", "instagram", "twitter"]} />
               </div>
             </div>
 
-            <nav className="mt-8 flex justify-between gap-6">
-              <Link href={`/blog-details/${prev.id}`} className="group flex items-center gap-3">
-                <span className="grid size-12 place-items-center rounded-full border border-line group-hover:bg-theme">
-                  <ArrowLeft className="size-5" />
-                </span>
+            <div className="mt-5 flex justify-between">
+              <Link
+                href={`/blog-details/${prev.id}`}
+                className="group flex items-center gap-2.5 font-title text-sm font-semibold uppercase"
+              >
+                <ArrowLeft className="size-4 transition-transform group-hover:-translate-x-1" strokeWidth={2.5} />
                 Previous Post
               </Link>
-              <Link href={`/blog-details/${next.id}`} className="group flex items-center gap-3">
+              <Link
+                href={`/blog-details/${next.id}`}
+                className="group flex items-center gap-2.5 font-title text-sm font-semibold uppercase"
+              >
                 Next Post
-                <span className="grid size-12 place-items-center rounded-full border border-line group-hover:bg-theme">
-                  <ArrowRight className="size-5" />
-                </span>
+                <ArrowRight className="size-4 transition-transform group-hover:translate-x-1" strokeWidth={2.5} />
               </Link>
-            </nav>
+            </div>
 
-            {/* Author */}
-            <div className="mt-12 flex flex-col gap-6 rounded-3xl bg-smoke p-8 sm:flex-row">
-              <span className="relative size-24 shrink-0 overflow-hidden rounded-full">
-                <Image src={team[2].image} alt={blog.author} fill sizes="96px" className="object-cover" />
-              </span>
+            <div className="my-20 md:flex md:items-center md:gap-[35px] lg:my-[100px]">
+              <div className="relative mb-[30px] aspect-[205/190] w-[205px] flex-none overflow-hidden md:mb-0">
+                <Image src={team[2].image} alt={blog.author} fill sizes="205px" className="object-cover" />
+              </div>
               <div>
-                <h3 className="text-xl">{blog.author}</h3>
-                <p className="mt-3 text-title/60">
+                <h4 className="mb-4 text-2xl font-semibold">{blog.author}</h4>
+                <p className="text-lg leading-[1.66]">
                   Ashton is a design lead who writes about e-commerce, branding
                   and the craft of building products people love to use.
                 </p>
               </div>
             </div>
 
-            {/* Comments */}
-            <div className="mt-16">
-              <h3 className="text-2xl">02 Comments</h3>
-              <ul className="mt-8 space-y-8">
-                {comments.map((c) => (
-                  <li
-                    key={c.name}
-                    className={`flex gap-5 border-b border-line pb-8 ${c.reply ? "sm:ml-16" : ""}`}
-                  >
-                    <span className="relative size-16 shrink-0 overflow-hidden rounded-full">
-                      <Image src={c.avatar} alt={c.name} fill sizes="64px" className="object-cover" />
-                    </span>
-                    <div>
-                      <span className="text-sm text-title/50">{blog.date}</span>
-                      <h4 className="mt-1 text-lg">{c.name}</h4>
-                      <p className="mt-2 text-title/70">{c.text}</p>
-                      <button
-                        type="button"
-                        className="mt-3 inline-flex items-center gap-2 font-title text-xs uppercase hover:text-title/60"
-                      >
-                        <Reply className="size-4" /> Reply
-                      </button>
-                    </div>
-                  </li>
-                ))}
-              </ul>
-            </div>
+            <h3 className="mb-[35px] text-[26px] font-semibold md:text-4xl">02 Comments</h3>
+            <ul className="mb-[50px]">
+              {comments.map((c) => (
+                <li
+                  key={c.name}
+                  className={`flex flex-wrap items-start gap-5 pb-12 md:flex-nowrap md:gap-[25px] ${c.reply ? "md:ml-[135px]" : ""}`}
+                >
+                  <div className="relative aspect-[115/105] w-[115px] flex-none overflow-hidden">
+                    <Image src={c.avatar} alt={c.name} fill sizes="115px" className="object-cover" />
+                  </div>
+                  <div>
+                    <span className="mb-1.5 block text-lg">{blog.date}</span>
+                    <h6 className="mb-[15px] text-xl font-semibold">{c.name}</h6>
+                    <p className="mb-5 text-lg">{c.text}</p>
+                    <ArrowLink href="#comment-form">Reply</ArrowLink>
+                  </div>
+                </li>
+              ))}
+            </ul>
 
-            <CommentForm />
+            <div id="comment-form" className="scroll-mt-28">
+              <CommentForm />
+            </div>
           </article>
 
-          <div className="lg:col-span-4">
+          <div className="lg:w-[32.5%] lg:pl-3 xl:w-[29.5%]">
             <BlogSidebar />
           </div>
         </div>
       </section>
-
-      <Newsletter />
     </>
   );
 }

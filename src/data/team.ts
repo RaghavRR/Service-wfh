@@ -1,12 +1,12 @@
 import type { StaticImageData } from "next/image";
-import t1 from "../../public/images/team-1.jpg";
-import t2 from "../../public/images/team-2.jpg";
-import t3 from "../../public/images/team-3.jpg";
-import t4 from "../../public/images/team-4.jpg";
-import t5 from "../../public/images/team-5.jpg";
-import t6 from "../../public/images/team-6.jpg";
-import t7 from "../../public/images/team-7.jpg";
-import t8 from "../../public/images/team-8.jpg";
+import t1 from "../../public/images/team-1.png";
+import t2 from "../../public/images/team-2.png";
+import t3 from "../../public/images/team-3.png";
+import t4 from "../../public/images/team-4.png";
+import t5 from "../../public/images/team-5.png";
+import t6 from "../../public/images/team-6.png";
+import t7 from "../../public/images/team-7.png";
+import t8 from "../../public/images/team-8.png";
 
 export type TeamMember = {
   name: string;

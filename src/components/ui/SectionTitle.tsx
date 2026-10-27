@@ -1,16 +1,23 @@
+export const secTitleClass =
+  "text-[30px] font-semibold leading-[1.2] xsm:text-[32px] sm:tracking-[-1.8px] md:text-[45px] 2xl:text-[60px] 2xl:leading-[1.133]";
+
 export default function SectionTitle({
   title,
   subtitle,
   light = false,
+  center = false,
   className = "",
 }: {
   title: string;
   subtitle?: string;
   light?: boolean;
+  center?: boolean;
   className?: string;
 }) {
   return (
-    <div className={className}>
+    <div
+      className={`${center ? "mx-auto text-center lg:max-w-[640px] xl:max-w-[570px] 2xl:max-w-[660px]" : ""} ${className}`}
+    >
       {subtitle && (
         <span
           className={`mb-4 inline-flex items-center gap-2 font-title text-xs font-medium uppercase tracking-[0.2em] ${
@@ -21,13 +28,7 @@ export default function SectionTitle({
           {subtitle}
         </span>
       )}
-      <h2
-        className={`text-[32px] leading-[1.2] sm:text-[44px] lg:text-[56px] ${
-          light ? "text-white" : ""
-        }`}
-      >
-        {title}
-      </h2>
+      <h2 className={`${secTitleClass} ${light ? "text-white" : ""}`}>{title}</h2>
     </div>
   );
 }

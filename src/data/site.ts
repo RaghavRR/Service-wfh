@@ -9,6 +9,8 @@ export const site = {
   email: "frisk.agency@mail.com",
   emailHref: "mailto:frisk.agency@mail.com",
   mapUrl: "https://maps.google.com/?q=27+Division+St,+New+York,+NY+10002",
+  mapEmbedUrl:
+    "https://maps.google.com/maps?q=London%20Eye%2C%20London%2C%20United%20Kingdom&t=m&z=10&output=embed&iwloc=near",
 };
 
 export type SocialName = "facebook" | "instagram" | "twitter" | "dribbble";

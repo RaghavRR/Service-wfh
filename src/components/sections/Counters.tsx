@@ -29,22 +29,27 @@ function Counter({ value, label }: { value: number; label: string }) {
   }, [value]);
 
   return (
-    <div ref={ref} className="border-b border-line pb-8">
-      <p className="font-title text-[56px] font-semibold leading-none lg:text-[72px]">
-        {n}
-        <span className="text-title/30">+</span>
-      </p>
-      <h3 className="mt-4 text-lg">{label}</h3>
-      <p className="mt-2 text-title/60">
-        We design high quality websites that make users come back for more.
-      </p>
+    <div
+      ref={ref}
+      className="relative w-full px-3 md:w-1/2 lg:w-1/3 xl:w-auto xl:[&:not(:first-child)]:before:absolute xl:[&:not(:first-child)]:before:-left-[30px] xl:[&:not(:first-child)]:before:top-0 xl:[&:not(:first-child)]:before:h-full xl:[&:not(:first-child)]:before:w-0.5 xl:[&:not(:first-child)]:before:bg-title 2xl:[&:not(:first-child)]:before:-left-[70px]"
+    >
+      <div className="text-center md:max-w-[320px] md:text-left">
+        <h3 className="mb-[18px] text-[40px] font-semibold leading-[1.278] md:text-[45px] 2xl:text-[60px]">
+          {n}+
+        </h3>
+        <h4 className="mb-[15px] text-[22px] font-semibold xl:text-2xl">{label}</h4>
+        <p className="text-base xl:text-lg">
+          We are a creative agency brands building insightful strategy,
+          creating unique designs helping
+        </p>
+      </div>
     </div>
   );
 }
 
 export default function Counters() {
   return (
-    <div className="space-y-10">
+    <div className="-mx-3 flex flex-wrap items-center justify-center gap-y-10 lg:justify-between">
       {counters.map((c) => (
         <Counter key={c.label} {...c} />
       ))}

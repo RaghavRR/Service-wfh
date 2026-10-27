@@ -1,80 +1,112 @@
 import Link from "next/link";
-import { ArrowUpRight } from "lucide-react";
-import Logo from "@/components/ui/Logo";
+import { RollLabel } from "@/components/ui/Button";
 import SocialIcons from "@/components/ui/SocialIcons";
+import Marquee from "@/components/layout/Marquee";
+import Newsletter from "@/components/sections/Newsletter";
 import { footerLinks, site } from "@/data/site";
 
 const YEAR = 2026;
 
-export default function Footer() {
+const mainLinks = [
+  { label: "About Company", href: "/about" },
+  { label: "Our Careers", href: "/team" },
+  { label: "Services", href: "/service-2" },
+  { label: "Contact", href: "/contact" },
+];
+
+const legalLinks = [
+  { label: "Privacy Policy", href: "/faq" },
+  { label: "Terms & Conditions", href: "/faq" },
+];
+
+function LinkList({ links }: { links: typeof mainLinks }) {
   return (
-    <footer className="bg-title text-white">
-      <div className="container-x grid gap-12 pb-16 pt-20 md:grid-cols-2 lg:grid-cols-12 lg:pt-28">
-        <div className="lg:col-span-5">
-          <Logo light />
-          <p className="mt-6 max-w-sm text-white/60">{site.tagline}</p>
-          <SocialIcons className="mt-8" />
-        </div>
-
-        <div className="lg:col-span-3">
-          <h4 className="mb-6 text-lg text-white">Links</h4>
-          <ul className="space-y-3">
-            {footerLinks.map((l) => (
-              <li key={l.label}>
-                <Link
-                  href={l.href}
-                  className="group inline-flex items-center gap-2 text-white/60 transition-colors hover:text-theme"
-                >
-                  <span className="h-px w-0 bg-theme transition-all duration-300 group-hover:w-4" />
-                  {l.label}
-                </Link>
-              </li>
-            ))}
-          </ul>
-        </div>
-
-        <div className="lg:col-span-4">
-          <h4 className="mb-6 text-lg text-white">Contact</h4>
-          <ul className="space-y-3 text-white/60">
-            <li>{site.address}</li>
-            <li>
-              <a href={site.phoneHref} className="hover:text-theme">
-                {site.phone}
-              </a>
-            </li>
-            <li>
-              <a href={site.emailHref} className="hover:text-theme">
-                {site.email}
-              </a>
-            </li>
-          </ul>
+    <ul className="flex flex-col gap-2.5 sm:flex-row sm:flex-wrap sm:gap-x-7 sm:gap-y-[15px] xl:gap-x-10">
+      {links.map((l) => (
+        <li key={l.label}>
           <Link
-            href="/contact"
-            className="group mt-8 inline-flex items-center gap-3 font-title text-2xl text-white hover:text-theme"
+            href={l.href}
+            className="group flex font-title text-sm font-semibold uppercase tracking-[-0.14px]"
           >
-            Let&apos;s talk
-            <span className="grid size-10 place-items-center rounded-full bg-theme text-title transition-transform duration-300 group-hover:rotate-45">
-              <ArrowUpRight className="size-5" />
-            </span>
+            <RollLabel>{l.label}</RollLabel>
           </Link>
-        </div>
-      </div>
+        </li>
+      ))}
+    </ul>
+  );
+}
 
-      <div className="border-t border-white/10">
-        <div className="container-x flex flex-col items-center justify-between gap-3 py-6 text-sm text-white/50 sm:flex-row">
-          <p>
-            Copyright © {YEAR} {site.name}. All rights reserved.
-          </p>
-          <p className="flex gap-6">
-            <Link href="/faq" className="hover:text-theme">
-              FAQ
-            </Link>
-            <Link href="/contact" className="hover:text-theme">
-              Contact
-            </Link>
+export function HomeFooter() {
+  return (
+    <footer className="bg-smoke pt-10">
+      <div className="container-x">
+        <div className="flex flex-col gap-2.5 border-y-2 border-title py-[21px] sm:gap-[15px] lg:flex-row lg:items-center lg:justify-between">
+          <LinkList links={mainLinks} />
+          <LinkList links={legalLinks} />
+        </div>
+        <div className="flex flex-col-reverse items-start gap-4 py-[22px] sm:flex-row sm:items-center sm:justify-between">
+          <SocialIcons plain />
+          <p className="text-lg">
+            Copyright © {YEAR} {site.name}
           </p>
         </div>
       </div>
     </footer>
+  );
+}
+
+const widgetTitle = "mb-8 text-xl font-semibold leading-[30px]";
+
+export function InnerFooter() {
+  return (
+    <>
+      <Marquee />
+      <footer className="bg-smoke">
+        <div className="container-x">
+          <div className="-mx-3 flex flex-wrap justify-between pb-[30px] pt-20 lg:pb-[90px] lg:pt-[140px]">
+            <div className="mb-[50px] w-full px-3 md:w-1/2 xl:w-5/12">
+              <Newsletter />
+            </div>
+            <div className="mb-[50px] w-full px-3 md:w-1/4 xl:w-1/6">
+              <h3 className={widgetTitle}>Links</h3>
+              <ul>
+                {footerLinks.map((l) => (
+                  <li key={l.label}>
+                    <Link
+                      href={l.href}
+                      className="relative mb-4 inline-flex text-lg after:absolute after:bottom-0 after:left-0 after:h-0.5 after:w-0 after:bg-title after:transition-all after:duration-400 hover:after:w-full xl:mb-[19px]"
+                    >
+                      {l.label}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
+            <div className="mb-[50px] w-full px-3 md:w-1/2 lg:w-1/3 xl:w-auto">
+              <h3 className={widgetTitle}>Contact</h3>
+              <ul className="space-y-[23px] text-lg leading-[30px]">
+                <li className="max-w-[280px]">{site.address}</li>
+                <li>
+                  <a href={site.phoneHref} className="block hover:underline">
+                    {site.phone}
+                  </a>
+                  <a href={site.emailHref} className="block hover:underline">
+                    {site.email}
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div className="container-x">
+          <div className="flex flex-col gap-4 border-t-2 border-title py-[22px] md:flex-row md:items-center md:justify-between">
+            <p className="text-lg">
+              Copyright © {YEAR} {site.name}
+            </p>
+            <SocialIcons plain />
+          </div>
+        </div>
+      </footer>
+    </>
   );
 }

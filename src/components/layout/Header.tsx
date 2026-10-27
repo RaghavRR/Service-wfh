@@ -1,22 +1,35 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { ChevronDown, Mail, MapPin, Phone, X } from "lucide-react";
+import { ChevronDown, Search, X } from "lucide-react";
 import Logo from "@/components/ui/Logo";
 import Button, { RollLabel } from "@/components/ui/Button";
 import SocialIcons from "@/components/ui/SocialIcons";
 import { navItems, site, type NavItem } from "@/data/site";
 
+const matches = (href: string, pathname: string) =>
+  href === pathname ||
+  (/\/\d+$/.test(href) && pathname.startsWith(href.replace(/\d+$/, "")));
+
 const isActive = (item: NavItem, pathname: string) =>
-  item.href === pathname ||
-  !!item.children?.some((c) => pathname === c.href || (c.href !== "/" && pathname.startsWith(c.href.replace(/\/\d+$/, ""))));
+  matches(item.href, pathname) ||
+  !!item.children?.some((c) => matches(c.href, pathname));
 
 export default function Header() {
   const pathname = usePathname();
+  const isHome = pathname === "/";
   const [open, setOpen] = useState(false);
+  const [searchOpen, setSearchOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const [openMenu, setOpenMenu] = useState<string | null>(null);
+  const searchRef = useRef<HTMLInputElement>(null);
+
+  const closeDropdown = () => {
+    setOpenMenu(null);
+    (document.activeElement as HTMLElement | null)?.blur();
+  };
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 80);
@@ -27,10 +40,16 @@ export default function Header() {
 
   useEffect(() => {
     document.body.style.overflow = open ? "hidden" : "";
-    const onKey = (e: KeyboardEvent) => e.key === "Escape" && setOpen(false);
+    if (searchOpen) searchRef.current?.focus();
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key !== "Escape") return;
+      setOpen(false);
+      setSearchOpen(false);
+      setOpenMenu(null);
+    };
     window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
-  }, [open]);
+  }, [open, searchOpen]);
 
   return (
     <>
@@ -39,109 +58,174 @@ export default function Header() {
           scrolled ? "shadow-[0_10px_30px_rgba(10,12,0,0.06)]" : ""
         }`}
       >
-        <div className="container-x flex h-20 items-center justify-between gap-6 lg:h-24">
+        <div
+          className={`flex h-20 items-center justify-between gap-4 px-3 sm:h-[90px] sm:px-12 ${
+            isHome ? "lg:h-[110px]" : "lg:h-[106px]"
+          }`}
+        >
           <Logo />
 
-          <nav className="hidden lg:block" aria-label="Main">
-            <ul className="flex items-center gap-10">
-              {navItems.map((item) => (
-                <li key={item.label} className="group relative">
-                  {item.children ? (
-                    <button
-                      type="button"
-                      className={`group flex items-center gap-1 py-8 font-title text-sm font-medium uppercase ${
-                        isActive(item, pathname) ? "text-title" : "text-title/80"
-                      }`}
-                    >
-                      <RollLabel>{item.label}</RollLabel>
-                      <ChevronDown className="size-4 transition-transform duration-300 group-hover:rotate-180" />
-                    </button>
-                  ) : (
-                    <Link
-                      href={item.href}
-                      className={`group flex py-8 font-title text-sm font-medium uppercase ${
-                        pathname === item.href ? "text-title" : "text-title/80"
-                      }`}
-                    >
-                      <RollLabel>{item.label}</RollLabel>
-                    </Link>
-                  )}
+          <nav className="hidden lg:ml-auto lg:block" aria-label="Main">
+            <ul className="flex items-center">
+              {navItems.map((item) => {
+                const active = isActive(item, pathname);
+                const labelClass = `group flex px-3 ${isHome ? "py-[46.5px]" : "py-[44.5px]"} font-title text-sm font-semibold uppercase tracking-[-0.14px] transition-colors xl:px-5 ${
+                  active ? "text-success" : "text-title hover:text-success"
+                }`;
+                const dropdownOpen = openMenu === item.label;
+                return (
+                  <li
+                    key={item.label}
+                    className="group relative"
+                    onMouseEnter={() => item.children && setOpenMenu(item.label)}
+                    onMouseLeave={() => setOpenMenu(null)}
+                  >
+                    {item.children ? (
+                      <button
+                        type="button"
+                        onClick={() => setOpenMenu(dropdownOpen ? null : item.label)}
+                        aria-expanded={dropdownOpen}
+                        className={labelClass}
+                      >
+                        <RollLabel>{item.label}</RollLabel>
+                      </button>
+                    ) : (
+                      <Link href={item.href} className={labelClass}>
+                        <RollLabel>{item.label}</RollLabel>
+                      </Link>
+                    )}
 
-                  {item.children && (
-                    <ul className="invisible absolute left-0 top-full w-60 translate-y-3 rounded-2xl bg-white p-3 opacity-0 shadow-[0_20px_50px_rgba(10,12,0,0.12)] transition-all duration-300 group-hover:visible group-hover:translate-y-0 group-hover:opacity-100 group-focus-within:visible group-focus-within:translate-y-0 group-focus-within:opacity-100">
-                      {item.children.map((c) => (
-                        <li key={c.href}>
-                          <Link
-                            href={c.href}
-                            className={`block rounded-xl px-4 py-2.5 text-[15px] transition-colors hover:bg-smoke hover:pl-6 ${
-                              pathname === c.href
-                                ? "bg-theme text-title"
-                                : "text-title/80"
-                            }`}
-                          >
-                            {c.label}
-                          </Link>
-                        </li>
-                      ))}
-                    </ul>
-                  )}
-                </li>
-              ))}
+                    {item.children && (
+                      <ul
+                        className={`absolute left-0 top-full w-[280px] bg-title px-7 py-6 transition-all duration-300 ${
+                          dropdownOpen
+                            ? "visible translate-y-0 opacity-100"
+                            : "invisible translate-y-3 opacity-0"
+                        }`}
+                      >
+                        {item.children.map((c) => (
+                          <li key={c.href}>
+                            <Link
+                              href={c.href}
+                              onClick={closeDropdown}
+                              className={`block py-2.5 text-base transition-colors hover:text-success ${
+                                matches(c.href, pathname) ? "text-success" : "text-white"
+                              }`}
+                            >
+                              {c.label}
+                            </Link>
+                          </li>
+                        ))}
+                      </ul>
+                    )}
+                  </li>
+                );
+              })}
             </ul>
           </nav>
 
-          <div className="flex items-center gap-4">
-            <Button href="/contact" variant="dark" className="hidden xl:inline-flex">
-              Let&apos;s Talk with us
-            </Button>
+          <div className="flex items-center gap-5 lg:ml-[25px] xl:ml-[85px] 2xl:gap-[50px]">
+            {isHome ? (
+              <button
+                type="button"
+                onClick={() => setSearchOpen(true)}
+                aria-label="Search"
+                className="group flex items-center gap-2 font-title text-sm font-semibold uppercase"
+              >
+                <Search className="size-5" strokeWidth={2.2} />
+                <span className="hidden sm:inline-flex">
+                  <RollLabel>Search</RollLabel>
+                </span>
+              </button>
+            ) : (
+              <div className="hidden lg:block">
+                <Button href="/project" variant="dark">
+                  Works With Us
+                </Button>
+              </div>
+            )}
             <button
               type="button"
               onClick={() => setOpen(true)}
               aria-label="Open menu"
               aria-expanded={open}
-              className="group grid size-12 place-items-center rounded-full bg-theme"
+              className={`group flex size-[50px] shrink-0 flex-col items-center justify-center gap-1 rounded-full border-2 border-title sm:size-[60px] ${
+                isHome ? "" : "lg:hidden"
+              }`}
             >
-              <span className="flex w-5 flex-col items-end gap-1.5">
-                <span className="h-0.5 w-5 bg-title" />
-                <span className="h-0.5 w-3 bg-title transition-all duration-300 group-hover:w-5" />
-                <span className="h-0.5 w-5 bg-title" />
-              </span>
+              <span className="h-0.5 w-[18px] bg-title" />
+              <span className="h-0.5 w-[18px] bg-title transition-all duration-300 group-hover:w-2.5" />
+              <span className="h-0.5 w-[18px] bg-title" />
             </button>
           </div>
         </div>
       </header>
 
-      {/* Off-canvas panel: full nav on mobile, contact info on all sizes */}
       <div
-        className={`fixed inset-0 z-50 bg-title/60 transition-opacity duration-300 ${
-          open ? "opacity-100" : "pointer-events-none opacity-0"
+        className={`fixed inset-x-0 top-0 z-50 flex h-[300px] items-center bg-title transition-transform duration-500 lg:h-[360px] ${
+          searchOpen ? "translate-y-0" : "-translate-y-full"
         }`}
-        onClick={() => setOpen(false)}
+        inert={!searchOpen}
+      >
+        <button
+          type="button"
+          onClick={() => setSearchOpen(false)}
+          aria-label="Close search"
+          className="absolute right-4 top-4 grid size-12 place-items-center rounded-full border border-white text-white transition-transform duration-300 hover:rotate-90 lg:right-10 lg:top-10 lg:size-[60px]"
+        >
+          <X className="size-5 lg:size-6" />
+        </button>
+        <div className="container-x">
+          <form action="/blog-2" className="mx-auto flex items-center gap-4 border-b-2 border-white xl:w-5/6">
+            <label htmlFor="site-search" className="sr-only">
+              Search
+            </label>
+            <input
+              ref={searchRef}
+              id="site-search"
+              name="q"
+              type="search"
+              placeholder="Search Here.."
+              className="h-[70px] min-w-0 flex-1 bg-transparent text-xl text-white outline-none placeholder:text-white/50 lg:text-2xl"
+            />
+            <button type="submit" aria-label="Submit search" className="text-white">
+              <Search className="size-6" />
+            </button>
+          </form>
+        </div>
+      </div>
+
+      <div
+        className={`fixed inset-0 z-40 transition-opacity duration-300 ${
+          open ? "bg-title/60 opacity-100" : searchOpen ? "opacity-100" : "pointer-events-none opacity-0"
+        }`}
+        onClick={() => {
+          setOpen(false);
+          setSearchOpen(false);
+        }}
         aria-hidden
       />
       <aside
-        className={`fixed right-0 top-0 z-50 flex h-full w-full max-w-[420px] flex-col overflow-y-auto bg-title px-8 py-10 text-white transition-transform duration-500 ${
-          open ? "translate-x-0" : "translate-x-full"
+        className={`fixed left-0 top-0 z-50 flex h-full w-full max-w-[310px] flex-col overflow-y-auto bg-white px-5 pb-10 pt-6 text-title transition-transform duration-500 lg:hidden ${
+          open ? "translate-x-0" : "-translate-x-full"
         }`}
         aria-hidden={!open}
         inert={!open}
       >
         <div className="flex items-center justify-between">
-          <Logo light onClick={() => setOpen(false)} />
+          <Logo onClick={() => setOpen(false)} />
           <button
             type="button"
             onClick={() => setOpen(false)}
             aria-label="Close menu"
-            className="grid size-11 place-items-center rounded-full bg-theme text-title transition-transform duration-300 hover:rotate-90"
+            className="grid size-[50px] place-items-center rounded-full border-2 border-title transition-transform duration-300 hover:rotate-90"
           >
-            <X className="size-5" />
+            <X className="size-4" strokeWidth={3} />
           </button>
         </div>
 
-        <p className="mt-8 text-white/70">{site.tagline}</p>
-
-        <nav className="mt-8 lg:hidden" aria-label="Mobile">
-          <ul className="divide-y divide-white/10 border-y border-white/10">
+        <nav className="mt-8" aria-label="Mobile">
+          <ul>
             {navItems.map((item) => (
               <MobileItem
                 key={item.label}
@@ -153,28 +237,66 @@ export default function Header() {
           </ul>
         </nav>
 
-        <div className="mt-10 space-y-5">
-          <h4 className="text-lg text-white">Get in touch</h4>
-          <p className="flex gap-3 text-white/70">
-            <MapPin className="mt-1 size-5 shrink-0 text-theme" />
-            {site.address}
+        <hr className="my-8 border-t-2 border-title" />
+
+        <div className="space-y-6 font-title text-sm font-semibold leading-[1.6]">
+          <p className="max-w-[240px]">{site.address}</p>
+          <p>
+            <a href={site.phoneHref} className="block">
+              {site.phone}
+            </a>
+            <a href={site.emailHref} className="block">
+              {site.email}
+            </a>
           </p>
-          <a href={site.phoneHref} className="flex gap-3 text-white/70 hover:text-theme">
-            <Phone className="mt-1 size-5 shrink-0 text-theme" />
-            {site.phone}
-          </a>
-          <a href={site.emailHref} className="flex gap-3 text-white/70 hover:text-theme">
-            <Mail className="mt-1 size-5 shrink-0 text-theme" />
-            {site.email}
-          </a>
+        </div>
+        <SocialIcons plain className="mt-7" />
+      </aside>
+
+      <aside
+        className={`fixed right-0 top-0 z-50 hidden h-full w-full max-w-[450px] flex-col overflow-y-auto bg-title px-16 pb-12 pt-[100px] text-white transition-transform duration-500 lg:flex ${
+          open ? "translate-x-0" : "translate-x-full"
+        }`}
+        aria-hidden={!open}
+        inert={!open}
+      >
+        <button
+          type="button"
+          onClick={() => setOpen(false)}
+          aria-label="Close menu"
+          className="absolute right-6 top-8 grid size-12 place-items-center rounded-full border border-white text-white transition-transform duration-300 hover:rotate-90"
+        >
+          <X className="size-5" />
+        </button>
+
+        <Logo light onClick={() => setOpen(false)} />
+        <p className="mt-6 text-lg leading-[1.65] text-white">{site.tagline}</p>
+        <hr className="my-10 border-white" />
+
+        <div className="space-y-6 font-title text-sm font-semibold leading-[1.6]">
+          <p className="max-w-[260px]">{site.address}</p>
+          <p>
+            <a href={site.phoneHref} className="block hover:text-theme">
+              {site.phone}
+            </a>
+            <a href={site.emailHref} className="block hover:text-theme">
+              {site.email}
+            </a>
+          </p>
         </div>
 
-        <SocialIcons className="mt-8" />
+        <SocialIcons plain className="mt-8 [&_a]:text-white [&_a:hover]:text-theme" />
 
-        <div className="mt-auto pt-10" onClick={() => setOpen(false)}>
-          <Button href="/contact" arrow className="w-full">
-            Let&apos;s Talk with us
-          </Button>
+        <div className="mt-auto flex justify-end pt-12">
+          <Link
+            href="/contact"
+            onClick={() => setOpen(false)}
+            className="group grid size-[168px] place-items-center rounded-full bg-theme text-center font-title text-sm font-semibold uppercase leading-[1.6] text-title transition-colors duration-300 hover:bg-white"
+          >
+            Let&rsquo;s Talk
+            <br />
+            With Us
+          </Link>
         </div>
       </aside>
     </>
@@ -198,8 +320,8 @@ function MobileItem({
         <Link
           href={item.href}
           onClick={onNavigate}
-          className={`block py-4 font-title text-sm uppercase ${
-            pathname === item.href ? "text-theme" : "text-white"
+          className={`block py-3.5 font-title text-lg font-semibold uppercase ${
+            matches(item.href, pathname) ? "text-success" : "text-title"
           }`}
         >
           {item.label}
@@ -214,26 +336,29 @@ function MobileItem({
         type="button"
         onClick={() => setExpanded((v) => !v)}
         aria-expanded={expanded}
-        className="flex w-full items-center justify-between py-4 font-title text-sm uppercase text-white"
+        className={`flex w-full items-center justify-between py-3.5 font-title text-lg font-semibold uppercase ${
+          isActive(item, pathname) ? "text-success" : "text-title"
+        }`}
       >
         {item.label}
         <ChevronDown
           className={`size-4 transition-transform duration-300 ${expanded ? "rotate-180" : ""}`}
+          strokeWidth={3}
         />
       </button>
       <div
         className={`grid transition-all duration-300 ${
-          expanded ? "grid-rows-[1fr] pb-3" : "grid-rows-[0fr]"
+          expanded ? "grid-rows-[1fr] pb-2" : "grid-rows-[0fr]"
         }`}
       >
-        <ul className="overflow-hidden pl-4">
+        <ul className="overflow-hidden pl-5">
           {item.children.map((c) => (
             <li key={c.href}>
               <Link
                 href={c.href}
                 onClick={onNavigate}
-                className={`block py-2 text-[15px] ${
-                  pathname === c.href ? "text-theme" : "text-white/70 hover:text-white"
+                className={`block py-1.5 text-base ${
+                  matches(c.href, pathname) ? "text-success" : "text-title hover:text-success"
                 }`}
               >
                 {c.label}

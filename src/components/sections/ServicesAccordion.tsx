@@ -32,9 +32,15 @@ export default function ServicesAccordion({ services }: { services: Service[] })
                 {s.excerpt}
               </p>
             )}
-            <span className="pointer-events-none absolute right-0 top-[33px]" aria-hidden>
+            <button
+              type="button"
+              onClick={() => setActive(open ? -1 : i)}
+              aria-label={open ? `Close ${s.title}` : `Open ${s.title}`}
+              aria-expanded={open}
+              className="absolute right-0 top-[25px] grid size-9 place-items-center"
+            >
               {open ? <Minus className="size-5" strokeWidth={3} /> : <Plus className="size-5" strokeWidth={3} />}
-            </span>
+            </button>
           </div>
         );
       })}

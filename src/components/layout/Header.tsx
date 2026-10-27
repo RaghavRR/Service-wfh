@@ -24,6 +24,7 @@ export default function Header() {
   const [searchOpen, setSearchOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [openMenu, setOpenMenu] = useState<string | null>(null);
+  const [mobileOpen, setMobileOpen] = useState<string | null>(null);
   const searchRef = useRef<HTMLInputElement>(null);
 
   const closeDropdown = () => {
@@ -206,13 +207,13 @@ export default function Header() {
         aria-hidden
       />
       <aside
-        className={`fixed left-0 top-0 z-50 flex h-full w-full max-w-[310px] flex-col overflow-y-auto bg-white px-5 pb-10 pt-6 text-title transition-transform duration-500 lg:hidden ${
+        className={`fixed left-0 top-0 z-50 flex h-full w-full max-w-[310px] flex-col overflow-y-auto bg-white px-5 pb-10 text-title transition-transform duration-500 lg:hidden ${
           open ? "translate-x-0" : "-translate-x-full"
         }`}
         aria-hidden={!open}
         inert={!open}
       >
-        <div className="flex items-center justify-between">
+        <div className="sticky top-0 z-10 -mx-5 flex items-center justify-between bg-white px-5 pb-4 pt-6">
           <Logo onClick={() => setOpen(false)} />
           <button
             type="button"
@@ -224,13 +225,15 @@ export default function Header() {
           </button>
         </div>
 
-        <nav className="mt-8" aria-label="Mobile">
+        <nav className="mt-4" aria-label="Mobile">
           <ul>
             {navItems.map((item) => (
               <MobileItem
                 key={item.label}
                 item={item}
                 pathname={pathname}
+                expanded={mobileOpen === item.label}
+                onToggle={() => setMobileOpen(mobileOpen === item.label ? null : item.label)}
                 onNavigate={() => setOpen(false)}
               />
             ))}
@@ -306,13 +309,16 @@ export default function Header() {
 function MobileItem({
   item,
   pathname,
+  expanded,
+  onToggle,
   onNavigate,
 }: {
   item: NavItem;
   pathname: string;
+  expanded: boolean;
+  onToggle: () => void;
   onNavigate: () => void;
 }) {
-  const [expanded, setExpanded] = useState(false);
 
   if (!item.children) {
     return (
@@ -334,7 +340,7 @@ function MobileItem({
     <li>
       <button
         type="button"
-        onClick={() => setExpanded((v) => !v)}
+        onClick={onToggle}
         aria-expanded={expanded}
         className={`flex w-full items-center justify-between py-3.5 font-title text-lg font-semibold uppercase ${
           isActive(item, pathname) ? "text-success" : "text-title"

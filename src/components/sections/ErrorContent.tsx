@@ -14,7 +14,7 @@ export default function ErrorContent({
   return (
     <section
       data-hide-footer
-      className="flex h-[calc(100svh-80px)] items-center justify-center overflow-hidden py-6 sm:h-[calc(100svh-90px)] lg:h-[calc(100svh-106px)]"
+      className="flex h-[calc(100svh-64px)] items-center justify-center overflow-hidden py-6 lg:h-[calc(100svh-72px)]"
     >
       <div className="container-x text-center">
         <p

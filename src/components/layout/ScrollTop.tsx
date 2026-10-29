@@ -26,7 +26,7 @@ export default function ScrollTop() {
       type="button"
       onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
       aria-label="Scroll to top"
-      className={`fixed bottom-[30px] right-[30px] z-30 grid size-[50px] place-items-center rounded-full bg-white shadow-[0_0_20px_rgba(10,12,0,0.12)] transition-all duration-300 ${
+      className={`fixed bottom-5 right-5 z-30 grid size-11 place-items-center sm:bottom-[30px] sm:right-[30px] sm:size-[50px] rounded-full bg-white shadow-[0_0_20px_rgba(10,12,0,0.12)] transition-all duration-300 ${
         visible ? "opacity-100" : "pointer-events-none translate-y-4 opacity-0"
       }`}
     >
@@ -42,7 +42,7 @@ export default function ScrollTop() {
           strokeDashoffset={CIRCUMFERENCE * (1 - progress)}
         />
       </svg>
-      <ArrowUp className="size-5" strokeWidth={2.5} />
+      <ArrowUp className="size-4 sm:size-5" strokeWidth={2.5} />
     </button>
   );
 }

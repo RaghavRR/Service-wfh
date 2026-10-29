@@ -23,7 +23,7 @@ export function generateStaticParams() {
 
 export async function generateMetadata({
   params,
-}: PageProps<"/blog-details/[id]">): Promise<Metadata> {
+}: { params: Promise<{ id: string }> }): Promise<Metadata> {
   const { id } = await params;
   return { title: getBlog(Number(id))?.title ?? "Blog Details" };
 }
@@ -48,7 +48,7 @@ const para = "mb-5 text-lg";
 
 export default async function BlogDetailsPage({
   params,
-}: PageProps<"/blog-details/[id]">) {
+}: { params: Promise<{ id: string }> }) {
   const { id } = await params;
   const blog = getBlog(Number(id));
   if (!blog) notFound();

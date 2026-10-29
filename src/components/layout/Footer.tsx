@@ -8,10 +8,10 @@ import { footerLinks, site } from "@/data/site";
 const YEAR = 2026;
 
 const mainLinks = [
-  { label: "About Company", href: "/about" },
-  { label: "Our Careers", href: "/team" },
   { label: "Services", href: "/service-2" },
-  { label: "Contact", href: "/contact" },
+  { label: "Our Team", href: "/team" },
+  { label: "FAQ", href: "/faq" },
+  // { label: "Blog", href: "/blog-2" },
 ];
 
 const legalLinks = [

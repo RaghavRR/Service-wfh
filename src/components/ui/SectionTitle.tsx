@@ -1,5 +1,5 @@
 export const secTitleClass =
-  "text-[30px] font-semibold leading-[1.2] xsm:text-[32px] sm:tracking-[-1.8px] md:text-[45px] 2xl:text-[60px] 2xl:leading-[1.133]";
+  "text-[28px] font-semibold leading-[1.2] tracking-[-0.5px] sm:text-[34px] lg:tracking-[-1px] xl:text-[40px]";
 
 export default function SectionTitle({
   title,

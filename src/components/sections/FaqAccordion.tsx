@@ -1,37 +1,57 @@
 "use client";
 
 import { useState } from "react";
-import { Minus, Plus } from "lucide-react";
+import { Plus } from "lucide-react";
 import { faqs } from "@/data/misc";
 
 export default function FaqAccordion() {
   const [open, setOpen] = useState(0);
 
   return (
-    <div>
+    <ul className="border-t border-title/15">
       {faqs.map((f, i) => {
         const isOpen = open === i;
         return (
-          <div key={f.q} className="relative border-b-2 border-title py-[30px] first:border-t-2">
+          <li key={f.q} className="border-b border-title/15">
             <button
               type="button"
               onClick={() => setOpen(isOpen ? -1 : i)}
               aria-expanded={isOpen}
-              className="flex w-full items-start justify-between gap-6 text-left font-title text-xl font-semibold"
+              className="group flex w-full cursor-pointer items-start gap-5 py-6 text-left lg:gap-8 lg:py-7"
             >
-              {f.q}
-              {isOpen ? (
-                <Minus className="mt-0.5 size-5 flex-none" strokeWidth={3} />
-              ) : (
-                <Plus className="mt-0.5 size-5 flex-none" strokeWidth={3} />
-              )}
+              <span
+                className={`mt-1 w-6 flex-none font-title text-sm font-semibold transition-colors duration-300 ${
+                  isOpen ? "text-title" : "text-title/40"
+                }`}
+              >
+                {String(i + 1).padStart(2, "0")}
+              </span>
+              <span className="flex-1 font-title text-base font-semibold leading-[1.45] sm:text-lg">
+                {f.q}
+              </span>
+              <span
+                className={`grid size-9 flex-none place-items-center rounded-full border transition-all duration-300 ${
+                  isOpen
+                    ? "rotate-45 border-theme bg-theme"
+                    : "border-title/20 group-hover:border-title"
+                }`}
+                aria-hidden
+              >
+                <Plus className="size-4" strokeWidth={2} />
+              </span>
             </button>
-            {isOpen && (
-              <p className="mb-4 mt-3 animate-fade-in text-base sm:text-lg">{f.a}</p>
-            )}
-          </div>
+            <div
+              className={`grid transition-[grid-template-rows] duration-500 ${
+                isOpen ? "grid-rows-[1fr]" : "grid-rows-[0fr]"
+              }`}
+            >
+              <p className="overflow-hidden pl-11 pr-14 text-base leading-[1.75] text-title/70 lg:pl-14">
+                <span className="block pb-7">{f.a}</span>
+              </p>
+            </div>
+          </li>
         );
       })}
-    </div>
+    </ul>
   );
 }

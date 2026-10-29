@@ -4,6 +4,7 @@ import Header from "@/components/layout/Header";
 import { HomeFooter, InnerFooter } from "@/components/layout/Footer";
 import FooterSwitch from "@/components/layout/FooterSwitch";
 import ScrollTop from "@/components/layout/ScrollTop";
+import SmoothScroll from "@/components/layout/SmoothScroll";
 import { site } from "@/data/site";
 import "./globals.css";
 
@@ -31,6 +32,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html lang="en" className={`${unbounded.variable} ${poppins.variable}`}>
       <body>
+        <SmoothScroll />
         <Header />
         <main>{children}</main>
         <div className="site-footer">

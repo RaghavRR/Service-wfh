@@ -11,53 +11,60 @@ export type Service = {
   title: string;
   icon: ServiceIcon;
   excerpt: string;
+  tags: string[];
 };
 
 export const services: Service[] = [
   {
     id: 1,
-    title: "Branding Design",
+    title: "UI/UX Design",
     icon: "branding",
     excerpt:
-      "We craft memorable identities — logos, colour systems and guidelines that make your brand instantly recognisable.",
+      "Research-led interfaces that feel effortless: user flows, wireframes and high-fidelity prototypes tested with real users.",
+    tags: ["User Research", "Wireframes", "Prototyping"],
   },
   {
     id: 2,
     title: "Web Development",
     icon: "web",
     excerpt:
-      "Fast, accessible and scalable websites built with modern frameworks that make users come back for more.",
+      "Fast, accessible and SEO-ready websites built with modern frameworks and a CMS your team can actually use.",
+    tags: ["Next.js", "React", "Headless CMS"],
   },
   {
     id: 3,
-    title: "Digital Marketing",
-    icon: "marketing",
+    title: "Web Applications",
+    icon: "illustration",
     excerpt:
-      "Data-driven campaigns across search, social and email that turn attention into measurable revenue growth.",
+      "Dashboards, portals and SaaS products engineered for scale, with clean architecture and reliable APIs.",
+    tags: ["SaaS", "Dashboards", "APIs"],
   },
   {
     id: 4,
-    title: "Illustration Modelling",
-    icon: "illustration",
+    title: "Design Systems",
+    icon: "content",
     excerpt:
-      "Custom illustrations and 3D models that give your product a distinctive personality and tell its story.",
+      "Reusable components, tokens and documentation that keep design and code consistent as your product grows.",
+    tags: ["Components", "Tokens", "Docs"],
   },
   {
     id: 5,
-    title: "Content Marketing",
-    icon: "content",
+    title: "Website Redesign",
+    icon: "marketing",
     excerpt:
-      "Stories, articles and videos that build trust with your audience and keep them engaged with your brand.",
+      "We audit what is holding your current site back, then rebuild it to look sharper and convert better.",
+    tags: ["UX Audit", "Rebrand", "Migration"],
   },
   {
     id: 6,
-    title: "Social Advertising",
+    title: "Performance & SEO",
     icon: "social",
     excerpt:
-      "Targeted ad campaigns on every major platform, optimised daily to get the most out of every dollar spent.",
+      "Core Web Vitals, technical SEO and analytics so your site loads instantly and ranks where customers search.",
+    tags: ["Core Web Vitals", "Technical SEO", "Analytics"],
   },
 ];
 
-export const homeServiceIds = [1, 4, 2, 3];
+export const homeServiceIds = [1, 2, 3, 4];
 
 export const getService = (id: number) => services.find((s) => s.id === id);

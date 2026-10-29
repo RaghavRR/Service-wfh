@@ -7,11 +7,28 @@ import t5 from "../../public/images/team-5.png";
 import t6 from "../../public/images/team-6.png";
 import t7 from "../../public/images/team-7.png";
 import t8 from "../../public/images/team-8.png";
+import founderImg from "../../public/images/founderimg.jpg"
 
 export type TeamMember = {
   name: string;
   role: string;
   image: StaticImageData;
+};
+
+export type Founder = TeamMember & {
+  quote: string;
+  story: string;
+};
+
+// Placeholder founder profile; replace the name, photo and words with the real ones.
+export const founder: Founder = {
+  name: "Aarav Malhotra",
+  role: "Founder & Creative Director",
+  image: founderImg,
+  quote:
+    "Great products aren't decorated, they're designed. Every pixel we place has to earn its spot by making someone's day easier.",
+  story:
+    "I started Kodrava to close the gap between beautiful design and solid engineering. Today our team designs and builds websites and web apps for brands that care about both.",
 };
 
 export const team: TeamMember[] = [

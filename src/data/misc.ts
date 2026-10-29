@@ -1,19 +1,27 @@
 export const faqs = [
   {
-    q: "Will you be updating the program?",
-    a: "Yes. Every project includes a support window after launch, and we offer ongoing maintenance plans so your product keeps improving with regular updates.",
+    q: "How long does a typical project take?",
+    a: "A marketing website usually takes 4 to 6 weeks from kickoff to launch. Web apps and larger products run 8 to 16 weeks, and we share a clear timeline before any work starts.",
   },
   {
-    q: "What happens to my data if I cancel?",
-    a: "Your data is always yours. If you cancel, we hand over all source files, accounts and exports, and remove our copies once the transfer is complete.",
+    q: "What does your design and development process look like?",
+    a: "We start with research and wireframes, move to high-fidelity UI design, then build in short sprints with a live preview link so you can review progress every week.",
   },
   {
-    q: "How I can optimize voice search?",
-    a: "Focus on natural, question-based content, fast page loads and structured data. Our marketing team can audit your site and build a voice-search strategy for you.",
+    q: "Which technologies do you build with?",
+    a: "Mostly Next.js and React on the front end, a headless CMS for content, and Node-based APIs where needed. We pick the stack that fits your product, not the other way round.",
   },
   {
-    q: "If I have questions, where can I find answers?",
-    a: "Reach out by phone or email any time, or browse our blog. Every client also gets a dedicated project manager who answers within one business day.",
+    q: "Can you redesign our existing website?",
+    a: "Yes. We audit your current site for UX, performance and SEO issues, then redesign and rebuild it, migrating your content without losing search rankings.",
+  },
+  {
+    q: "Do you offer support after launch?",
+    a: "Every project includes a support window after launch, and we offer monthly maintenance plans for updates, monitoring and new features.",
+  },
+  {
+    q: "Who owns the designs and code?",
+    a: "You do. Once the project is paid for, all design files, source code and accounts are handed over to you.",
   },
 ];
 

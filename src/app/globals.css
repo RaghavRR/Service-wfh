@@ -76,6 +76,25 @@
 @layer base {
   html {
     scroll-behavior: smooth;
+    /* Scrollbar hidden by design; scrolling itself still works everywhere. */
+    scrollbar-width: none;
+  }
+  html::-webkit-scrollbar {
+    display: none;
+  }
+  /* Lenis (see SmoothScroll.tsx) takes over scrolling when it is active. */
+  html.lenis,
+  html.lenis body {
+    height: auto;
+  }
+  .lenis.lenis-smooth {
+    scroll-behavior: auto !important;
+  }
+  .lenis.lenis-stopped {
+    overflow: clip;
+  }
+  .lenis.lenis-smooth iframe {
+    pointer-events: none;
   }
 
   body {
@@ -172,6 +191,12 @@
     overflow: hidden;
   }
 
+  /* Tailwind v4 leaves buttons on the default arrow; show the hand cursor like links. */
+  button:not(:disabled),
+  [role="button"]:not([aria-disabled="true"]) {
+    cursor: pointer;
+  }
+
   ::selection {
     background: var(--color-theme);
     color: var(--color-title);
@@ -179,34 +204,22 @@
 }
 
 @layer components {
+  /* One narrow content column for every page (backgrounds stay full-bleed),
+     so there is always generous space on the left and right. */
   .container-x {
     width: 100%;
+    max-width: 1200px;
     margin-inline: auto;
-    padding-inline: 12px;
-  }
-  @media (min-width: 576px) {
-    .container-x {
-      max-width: 540px;
-    }
+    padding-inline: 20px;
   }
   @media (min-width: 768px) {
     .container-x {
-      max-width: 720px;
-    }
-  }
-  @media (min-width: 992px) {
-    .container-x {
-      max-width: 960px;
+      padding-inline: 40px;
     }
   }
   @media (min-width: 1200px) {
     .container-x {
-      max-width: 1140px;
-    }
-  }
-  @media (min-width: 1400px) {
-    .container-x {
-      max-width: 1320px;
+      padding-inline: 48px;
     }
   }
 

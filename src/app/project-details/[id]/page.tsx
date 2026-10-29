@@ -24,7 +24,7 @@ export async function generateMetadata({
 }
 
 const secText = "text-base leading-[1.667] xl2:text-lg";
-const h3Class = "mb-[15px] text-[26px] font-semibold leading-[1.278] md:text-[30px] xl:text-4xl";
+const h3Class = "mb-[15px] text-[22px] font-semibold leading-[1.3] md:text-2xl xl:text-[28px]";
 
 export default async function ProjectDetailsPage({
   params,

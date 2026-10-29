@@ -34,7 +34,7 @@ function Counter({ value, label }: { value: number; label: string }) {
       className="relative w-full px-3 md:w-1/2 lg:w-1/3 xl:w-auto xl:[&:not(:first-child)]:before:absolute xl:[&:not(:first-child)]:before:-left-[30px] xl:[&:not(:first-child)]:before:top-0 xl:[&:not(:first-child)]:before:h-full xl:[&:not(:first-child)]:before:w-0.5 xl:[&:not(:first-child)]:before:bg-title 2xl:[&:not(:first-child)]:before:-left-[70px]"
     >
       <div className="text-center md:max-w-[320px] md:text-left">
-        <h3 className="mb-[18px] text-[40px] font-semibold leading-[1.278] md:text-[45px] 2xl:text-[60px]">
+        <h3 className="mb-[18px] text-[36px] font-semibold leading-[1.2] md:text-[40px] xl:text-[48px]">
           {n}+
         </h3>
         <h4 className="mb-[15px] text-[22px] font-semibold xl:text-2xl">{label}</h4>

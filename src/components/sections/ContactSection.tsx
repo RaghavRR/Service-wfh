@@ -1,7 +1,6 @@
 import ContactForm from "@/components/sections/ContactForm";
 import ContactMap from "@/components/sections/ContactMap";
-import { secTitleClass } from "@/components/ui/SectionTitle";
-import Reveal from "@/components/ui/Reveal";
+import SplitBand, { bandText } from "@/components/sections/SplitBand";
 
 export default function ContactSection({
   title = "Have Any Project on Your Mind?",
@@ -11,22 +10,18 @@ export default function ContactSection({
   text?: string;
 }) {
   return (
-    <section id="contact-form" className="relative scroll-mt-28 bg-theme pb-20 lg:mt-[100px] lg:py-[140px]">
-      <Reveal
-        from="left"
-        className="relative h-[400px] w-full lg:absolute lg:left-0 lg:top-[-100px] lg:bottom-[140px] lg:h-auto lg:w-[42%]"
-      >
-        <ContactMap className="size-full" />
-      </Reveal>
-      <div className="container-x pt-20 lg:pt-0">
-        <div className="lg:ml-auto lg:w-1/2 lg:pl-3">
-          <div className="mb-[30px]">
-            <h2 className={`mb-[17px] ${secTitleClass}`}>{title}</h2>
-            <p className="text-base xl2:text-lg">{text}</p>
-          </div>
-          <ContactForm />
-        </div>
-      </div>
-    </section>
+    <SplitBand
+      id="contact-form"
+      side="left"
+      // The map stretches to the form's height instead of sitting in a small square.
+      mediaClassName="h-[360px] rounded-3xl lg:h-auto lg:self-stretch"
+      media={<ContactMap className="absolute inset-0" />}
+    >
+      <h2 className="mb-3 text-2xl font-semibold leading-[1.25] tracking-[-0.5px] sm:text-[28px] lg:tracking-[-1px] xl:text-[32px]">
+        {title}
+      </h2>
+      <p className={`mb-6 ${bandText}`}>{text}</p>
+      <ContactForm />
+    </SplitBand>
   );
 }

@@ -1,8 +1,9 @@
 import Button from "@/components/ui/Button";
+import { band } from "@/components/sections/SplitBand";
 
 export default function CtaSection() {
   return (
-    <section className="bg-smoke pb-10 pt-20 lg:pb-[100px] lg:pt-[140px]">
+    <section className={`${band} bg-smoke py-16 lg:py-24`}>
       <div className="container-x lg:grid lg:grid-cols-12 lg:gap-6">
         <h2 className="mb-[30px] text-[32px] font-semibold leading-[1.15] tracking-[-0.5px] sm:text-[40px] lg:col-span-6 lg:mb-0 lg:tracking-[-1px] xl:text-[48px]">
           Let&rsquo;s Work Together

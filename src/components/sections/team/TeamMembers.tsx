@@ -1,9 +1,10 @@
 import TeamCard from "@/components/cards/TeamCard";
 import { team } from "@/data/team";
+import { band } from "@/components/sections/SplitBand";
 
 export default function TeamMembers() {
   return (
-    <section className="bg-smoke py-20 lg:py-[120px]">
+    <section className={`${band} bg-smoke py-20 lg:py-[120px]`}>
       <div className="container-x">
         <div className="mb-12 max-w-[640px] lg:mb-16">
           <p className="mb-3 flex items-center gap-3 font-title text-xs font-semibold uppercase tracking-[0.12em] text-success sm:text-sm">

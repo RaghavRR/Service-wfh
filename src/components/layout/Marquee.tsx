@@ -1,10 +1,11 @@
 import { Asterisk } from "lucide-react";
+import { band } from "@/components/sections/SplitBand";
 
 const ITEMS = Array(6).fill("We Give Unparalleled Flexibility");
 
 export default function Marquee() {
   return (
-    <div className="overflow-hidden bg-[#1601ac] py-[31px]" aria-hidden>
+    <div className={`${band} overflow-hidden bg-[#1601ac] py-[31px]`} aria-hidden>
       <div className="flex w-max animate-marquee">
         {[0, 1].map((copy) => (
           <div key={copy} className="flex">

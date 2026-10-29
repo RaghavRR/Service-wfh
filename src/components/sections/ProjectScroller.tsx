@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import ProjectCard from "@/components/cards/ProjectCard";
 import type { Project } from "@/data/projects";
+import { band } from "@/components/sections/SplitBand";
 
 const HEADER_H = 72; // desktop header height in Header.tsx
 
@@ -22,6 +23,7 @@ export default function ProjectScroller({
   const section = useRef<HTMLElement>(null);
   const panel = useRef<HTMLDivElement>(null);
   const track = useRef<HTMLDivElement>(null);
+  const svhProbe = useRef<HTMLDivElement>(null);
   const [distance, setDistance] = useState(0);
   const [panelH, setPanelH] = useState(0);
   const [stickyTop, setStickyTop] = useState(HEADER_H);
@@ -31,9 +33,12 @@ export default function ProjectScroller({
     const t = track.current!;
     const p = panel.current!;
     const measure = () => {
+      // Use the small viewport height (address bar shown) rather than innerHeight, which
+      // changes as mobile browser bars hide/show and would make the pinned block jump.
+      const viewportH = svhProbe.current?.offsetHeight || window.innerHeight;
       setDistance(Math.max(0, t.scrollWidth - t.clientWidth));
       setPanelH(p.offsetHeight);
-      setStickyTop(Math.max(HEADER_H, (window.innerHeight - p.offsetHeight) / 2));
+      setStickyTop(Math.max(HEADER_H, (viewportH - p.offsetHeight) / 2));
     };
     measure();
     const ro = new ResizeObserver(measure);
@@ -71,8 +76,9 @@ export default function ProjectScroller({
     <section
       ref={section}
       style={panelH ? { height: panelH + distance } : undefined}
-      className={dark ? "bg-title text-white" : "bg-smoke text-title"}
+      className={`${band} ${dark ? "bg-title text-white" : "bg-smoke text-title"}`}
     >
+      <div ref={svhProbe} className="pointer-events-none invisible fixed left-0 top-0 h-svh w-0" aria-hidden />
       <div ref={panel} style={{ top: stickyTop }} className="sticky overflow-hidden py-10 lg:py-12">
         <div className="container-x">
           <div>{heading}</div>

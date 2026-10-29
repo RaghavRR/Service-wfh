@@ -4,6 +4,7 @@ import SocialIcons from "@/components/ui/SocialIcons";
 import Marquee from "@/components/layout/Marquee";
 import Newsletter from "@/components/sections/Newsletter";
 import { footerLinks, site } from "@/data/site";
+import { band } from "@/components/sections/SplitBand";
 
 const YEAR = 2026;
 
@@ -38,7 +39,7 @@ function LinkList({ links }: { links: typeof mainLinks }) {
 
 export function HomeFooter() {
   return (
-    <footer className="bg-smoke pt-10">
+    <footer className={`${band} bg-smoke pt-10`}>
       <div className="container-x">
         <div className="flex flex-col gap-2.5 border-y-2 border-title py-[21px] sm:gap-[15px] lg:flex-row lg:items-center lg:justify-between">
           <LinkList links={mainLinks} />
@@ -61,7 +62,7 @@ export function InnerFooter() {
   return (
     <>
       <Marquee />
-      <footer className="bg-smoke">
+      <footer className={`${band} bg-smoke`}>
         <div className="container-x">
           <div className="-mx-3 flex flex-wrap justify-between pb-[30px] pt-20 lg:pb-[90px] lg:pt-[140px]">
             <div className="mb-[50px] w-full px-3 md:w-1/2 xl:w-5/12">

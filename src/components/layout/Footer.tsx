@@ -1,22 +1,27 @@
+import Image from "next/image";
 import Link from "next/link";
 import SocialIcons from "@/components/ui/SocialIcons";
 import Newsletter from "@/components/sections/Newsletter";
 import { footerLinks, site } from "@/data/site";
 import { band } from "@/components/sections/SplitBand";
+import footerFigure from "../../../public/images/footer-figure.jpg";
 
 const YEAR = 2026;
 
 const widgetTitle = "mb-6 font-title text-xs font-semibold uppercase tracking-[0.14em] text-white/50 lg:mb-8";
 
-// Decorative layer only: diagonal ladder lines, a lime glow, concentric rings and a dot grid.
+// Decorative layer only: a black-and-white photo on the right, seen through vertical slats
+// and faded into the footer so it reads as part of the design rather than a pasted image.
 function FooterBackdrop() {
   return (
-    <div className="pointer-events-none absolute inset-0 overflow-hidden" aria-hidden>
-      <div className="absolute -right-[10%] -top-1/2 h-[140%] w-[45%] rotate-[28deg] bg-[repeating-linear-gradient(0deg,rgba(255,255,255,0.12)_0_1px,transparent_1px_22px)] [mask-image:linear-gradient(90deg,transparent,#000_30%,#000_70%,transparent)]" />
-      <div className="absolute -left-[20%] top-[20%] h-[140%] w-[30%] rotate-[28deg] bg-[repeating-linear-gradient(0deg,rgba(255,255,255,0.09)_0_1px,transparent_1px_22px)] [mask-image:linear-gradient(90deg,transparent,#000_30%,#000_70%,transparent)]" />
-      <div className="absolute -right-40 -top-40 size-[620px] rounded-full bg-[radial-gradient(closest-side,rgba(227,255,4,0.22),transparent)]" />
-      <div className="absolute -bottom-[360px] -left-[200px] size-[720px] rounded-full bg-[repeating-radial-gradient(circle,transparent_0_34px,rgba(255,255,255,0.14)_34px_35px)] [mask-image:radial-gradient(closest-side,#000_45%,transparent)]" />
-      <div className="absolute bottom-0 right-0 h-[70%] w-[45%] bg-[radial-gradient(rgba(255,255,255,0.28)_1px,transparent_1.5px)] bg-[size:18px_18px] [mask-image:radial-gradient(100%_100%_at_100%_100%,#000,transparent_70%)]" />
+    <div className="pointer-events-none absolute inset-0 hidden md:block" aria-hidden>
+      <div className="absolute bottom-0 right-0 aspect-[660/700] h-full [mask-image:linear-gradient(0deg,#000_60%,transparent_100%)]">
+        <div className="absolute inset-0 [mask-image:linear-gradient(90deg,transparent_0%,#000_35%)]">
+          <div className="absolute inset-0 [mask-image:repeating-linear-gradient(90deg,#000_0_14px,transparent_14px_20px)]">
+            <Image src={footerFigure} alt="" fill sizes="45vw" className="object-cover opacity-75" />
+          </div>
+        </div>
+      </div>
     </div>
   );
 }

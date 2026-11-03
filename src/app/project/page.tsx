@@ -10,7 +10,7 @@ export const metadata: Metadata = { title: "Portfolio" };
 export default function ProjectPage() {
   return (
     <>
-      <PageHeader image={banners.portfolio} title="Portfolio" />
+      <PageHeader {...banners.portfolio} />
       <ProjectScroller
         projects={projects}
         heading={

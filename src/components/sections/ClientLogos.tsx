@@ -3,7 +3,7 @@ import { clients } from "@/data/misc";
 
 export default function ClientLogos() {
   return (
-    <section className="section-space overflow-hidden">
+    <section className="section-space overflow-hidden pt-0 lg:pt-0">
       <div className="container-x">
         <ul className="ml-0.5 mt-0.5 grid grid-cols-4 xl:mx-auto xl:max-w-[736px] 2xl:max-w-[856px]">
           {clients.map((name) => (

@@ -10,7 +10,7 @@ export const metadata: Metadata = { title: "Team" };
 export default function TeamPage() {
   return (
     <>
-      <PageHeader image={banners.team} title="Team" />
+      <PageHeader {...banners.team} />
       <FounderSection />
       <TeamMembers />
       <ContactSection />

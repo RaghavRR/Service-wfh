@@ -8,17 +8,19 @@ import Logo from "@/components/ui/Logo";
 import { RollLabel } from "@/components/ui/Button";
 import { navItems } from "@/data/site";
 
+// Pages that open with a full-width video (hero on home, PageHeader elsewhere).
+const VIDEO_TOP = ["/", "/about", "/project", "/service-2", "/team", "/faq", "/contact"];
+
 // "/project" also stays active on "/project-details/…".
 const isActive = (href: string, pathname: string) =>
   href === "/" ? pathname === "/" : pathname.startsWith(href);
 
 export default function Header() {
   const pathname = usePathname();
-  const isHome = pathname === "/";
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
-  // On the home page the header floats over the hero video until the user scrolls.
-  const overlay = isHome && !scrolled;
+  // Over a top video the header is transparent until the user scrolls.
+  const overlay = VIDEO_TOP.includes(pathname) && !scrolled;
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 80);

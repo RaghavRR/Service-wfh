@@ -5,6 +5,7 @@ import FeaturedProjects from "@/components/sections/home/FeaturedProjects";
 import TeamSection from "@/components/sections/TeamSection";
 import TestimonialsSection from "@/components/sections/home/TestimonialsSection";
 // import BlogSection from "@/components/sections/home/BlogSection";
+import Marquee from "@/components/layout/Marquee";
 import CtaSection from "@/components/sections/home/CtaSection";
 
 export default function HomePage() {
@@ -18,6 +19,7 @@ export default function HomePage() {
       <TestimonialsSection />
       {/* Blog is disabled for now; re-enable together with src/app/_blog-2. */}
       {/* <BlogSection /> */}
+      <Marquee />
       <CtaSection />
     </>
   );

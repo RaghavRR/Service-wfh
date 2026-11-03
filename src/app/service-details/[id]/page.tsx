@@ -66,7 +66,7 @@ export default async function ServiceDetailsPage({
             that look great and perform even better.
           </p>
           <h3 className={`mt-[60px] ${h3Class}`}>Remarking Services</h3>
-          <p className={secText}>
+          <p className={`mb-[35px] xl:mb-10 ${secText}`}>
             A brand refresh helps position the company to meet the challenges of
             the future, leading with technological innovation and sustainable
             practices that deliver long-lasting value for its clients.
@@ -85,12 +85,12 @@ export default async function ServiceDetailsPage({
         </div>
 
         <div className="mx-auto xl:w-2/3">
-          <p className={`mb-[35px] xl:mb-10 ${secText}`}>
+          <p className={secText}>
             A brand refresh helps position the company to meet the challenges of
             the future, leading with technological innovation and sustainable
             practices that deliver long-lasting value for its clients.
           </p>
-          <h3 className={h3Class}>Making for Users Friendly</h3>
+          <h3 className={`mt-[60px] ${h3Class}`}>Making for Users Friendly</h3>
           <p className={`mt-[30px] ${secText}`}>
             Good design is invisible: it simply works. We test with real users,
             measure what matters and refine until every interaction feels
@@ -105,8 +105,8 @@ export default async function ServiceDetailsPage({
 
           <div className="grid gap-6 md:grid-cols-2">
             {features.map((f) => (
-              <div key={f.title} className="bg-smoke px-[26px] py-[30px] lg:px-9 lg:py-10">
-                <ServiceIcon name={f.icon} className="mb-[34px] size-[60px] lg:mb-[74px]" />
+              <div key={f.title} className="border border-title/10 bg-white px-[26px] py-[30px] lg:px-9 lg:py-10">
+                <ServiceIcon name={f.icon} className="mb-6 size-9 sm:size-10 lg:mb-10 lg:size-11" />
                 <h4 className="mb-[15px] text-xl font-semibold lg:text-2xl">
                   <Link href="/project">{f.title}</Link>
                 </h4>

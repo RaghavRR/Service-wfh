@@ -9,7 +9,7 @@ export const metadata: Metadata = { title: "FAQ" };
 export default function FaqPage() {
   return (
     <>
-      <PageHeader image={banners.faq} title="FAQs" />
+      <PageHeader {...banners.faq} />
       <FaqSection />
       <ContactCards className="pb-20 lg:pb-[140px]" />
     </>

@@ -11,7 +11,7 @@ export const metadata: Metadata = { title: "Blog" };
 export default function BlogPage() {
   return (
     <>
-      <PageHeader image={banners.blog} title="Blog" />
+      <PageHeader {...banners.blog} />
       <section className="section-space">
         <div className="container-x grid gap-14 lg:grid-cols-12">
           <div className="lg:col-span-8">

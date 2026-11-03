@@ -76,7 +76,7 @@ export default function ProjectScroller({
     <section
       ref={section}
       style={panelH ? { height: panelH + distance } : undefined}
-      className={`${band} ${dark ? "bg-title text-white" : "bg-smoke text-title"}`}
+      className={`${band} ${dark ? "bg-title text-white" : "bg-white text-title"}`}
     >
       <div ref={svhProbe} className="pointer-events-none invisible fixed left-0 top-0 h-svh w-0" aria-hidden />
       <div ref={panel} style={{ top: stickyTop }} className="sticky overflow-hidden py-10 lg:py-12">
@@ -85,10 +85,10 @@ export default function ProjectScroller({
 
           {/* Cards travel inside the content column only, so the section keeps the site's side margins. */}
           <div className="mt-8 overflow-hidden lg:mt-10">
-            {/* Left inset makes the row start right-of-centre, so the cards visibly travel in from the right. */}
+            {/* Row starts flush with the heading; scrolling slides the rest in from the right. */}
             <div
               ref={track}
-              className="flex gap-6 pl-[12%] will-change-transform md:pl-[30%] lg:gap-8 lg:pl-[40%]"
+              className="flex gap-6 will-change-transform lg:gap-8"
             >
               {projects.map((p) => (
                 <ProjectCard

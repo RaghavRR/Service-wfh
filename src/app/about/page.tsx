@@ -13,13 +13,13 @@ export const metadata: Metadata = { title: "About" };
 export default function AboutPage() {
   return (
     <>
-      <PageHeader image={banners.about} title="About" />
+      <PageHeader {...banners.about} />
       <CountersSection />
       <WhyUsBand />
       <MilestonesSection />
       <TeamSection className="overflow-hidden pb-20 lg:pb-[140px]" />
-      <ContactSection />
       <ClientLogos />
+      <ContactSection />
     </>
   );
 }

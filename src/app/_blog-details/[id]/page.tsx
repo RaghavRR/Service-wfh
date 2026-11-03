@@ -3,7 +3,6 @@ import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ArrowLeft, ArrowRight } from "lucide-react";
-import Breadcrumb from "@/components/sections/Breadcrumb";
 import BlogSidebar from "@/components/sections/BlogSidebar";
 import CommentForm from "@/components/sections/CommentForm";
 import { ArrowLink } from "@/components/ui/Button";
@@ -59,14 +58,6 @@ export default async function BlogDetailsPage({
 
   return (
     <>
-      <Breadcrumb
-        items={[
-          { label: "Home", href: "/" },
-          { label: "Blog", href: "/blog-2" },
-          { label: blog.title },
-        ]}
-      />
-
       <section className="section-space overflow-hidden">
         <div className="container-x flex flex-col gap-y-20 lg:flex-row">
           <article className="min-w-0 lg:w-[67.5%] lg:pr-3 xl:w-[70.5%]">

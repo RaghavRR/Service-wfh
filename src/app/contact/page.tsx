@@ -9,7 +9,7 @@ export const metadata: Metadata = { title: "Contact" };
 export default function ContactPage() {
   return (
     <>
-      <PageHeader image={banners.contact} title="Contact" />
+      <PageHeader {...banners.contact} />
       <ContactCards />
       <ContactSection />
     </>

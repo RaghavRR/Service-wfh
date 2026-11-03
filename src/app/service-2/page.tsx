@@ -11,7 +11,7 @@ export const metadata: Metadata = { title: "Services" };
 export default function ServicePage() {
   return (
     <>
-      <PageHeader image={banners.service} title="Services" />
+      <PageHeader {...banners.service} />
       <section className="section-space overflow-hidden">
         <div className="container-x">
           <ServicesList services={services} />

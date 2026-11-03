@@ -3,7 +3,6 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ArrowLeft, ArrowRight } from "lucide-react";
 import ProjectSlider from "@/components/sections/ProjectSlider";
-import Breadcrumb from "@/components/sections/Breadcrumb";
 import { secTitleClass } from "@/components/ui/SectionTitle";
 import { getProject, projects } from "@/data/projects";
 import inner1 from "../../../../public/images/project-inner-1.jpg";
@@ -47,14 +46,6 @@ export default async function ProjectDetailsPage({
 
   return (
     <>
-      <Breadcrumb
-        items={[
-          { label: "Home", href: "/" },
-          { label: "Portfolio", href: "/project" },
-          { label: project.shortTitle },
-        ]}
-      />
-
       <section className="section-space overflow-hidden">
         <div className="container-x">
           <Reveal from="top">

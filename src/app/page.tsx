@@ -1,4 +1,5 @@
 import HeroSection from "@/components/sections/home/HeroSection";
+import ClientLogos from "@/components/sections/ClientLogos";
 import AboutBand from "@/components/sections/home/AboutBand";
 import ServicesSection from "@/components/sections/home/ServicesSection";
 import FeaturedProjects from "@/components/sections/home/FeaturedProjects";
@@ -12,6 +13,7 @@ export default function HomePage() {
   return (
     <>
       <HeroSection />
+      <ClientLogos />
       <AboutBand />
       <ServicesSection />
       <FeaturedProjects />

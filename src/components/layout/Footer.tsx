@@ -12,11 +12,12 @@ const widgetTitle = "mb-6 font-title text-xs font-semibold uppercase tracking-[0
 
 // Decorative layer only: a black-and-white photo on the right, seen through vertical slats
 // and faded into the footer so it reads as part of the design rather than a pasted image.
+// Capped at 1600px wide so on big screens it stays beside the content.
 function FooterBackdrop() {
   return (
-    <div className="pointer-events-none absolute inset-0" aria-hidden>
+    <div className="pointer-events-none absolute inset-y-0 left-1/2 w-full max-w-[1600px] -translate-x-1/2" aria-hidden>
       <div className="absolute bottom-0 right-0 aspect-[660/700] h-[45%] md:h-full [mask-image:linear-gradient(0deg,#000_60%,transparent_100%)]">
-        <div className="absolute inset-0 [mask-image:linear-gradient(90deg,transparent_0%,#000_35%)]">
+        <div className="absolute inset-0 [mask-image:linear-gradient(90deg,transparent_0%,#000_35%,#000_85%,transparent_100%)]">
           <div className="absolute inset-0 [mask-image:repeating-linear-gradient(90deg,#000_0_14px,transparent_14px_20px)]">
             <Image src={footerFigure} alt="" fill sizes="45vw" className="object-cover opacity-30 md:opacity-75" />
           </div>

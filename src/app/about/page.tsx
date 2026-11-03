@@ -6,7 +6,6 @@ import WhyUsBand from "@/components/sections/about/WhyUsBand";
 import MilestonesSection from "@/components/sections/about/MilestonesSection";
 import TeamSection from "@/components/sections/TeamSection";
 import ContactSection from "@/components/sections/ContactSection";
-import ClientLogos from "@/components/sections/ClientLogos";
 
 export const metadata: Metadata = { title: "About" };
 
@@ -18,7 +17,6 @@ export default function AboutPage() {
       <WhyUsBand />
       <MilestonesSection />
       <TeamSection className="overflow-hidden pb-20 lg:pb-[140px]" />
-      <ClientLogos />
       <ContactSection />
     </>
   );

@@ -1,8 +1,7 @@
 import Reveal from "@/components/ui/Reveal";
 
-// Coloured section backgrounds: edge-to-edge on normal screens, but capped on very wide
-// screens (or when zoomed out) so they don't stretch far beyond the content column.
-export const band = "mx-auto w-full max-w-[1600px]";
+// Coloured section backgrounds run edge to edge like the hero; content stays in .container-x.
+export const band = "w-full";
 
 export const bandTitle =
   "text-[28px] font-semibold leading-[1.2] tracking-[-0.5px] sm:text-[34px] lg:tracking-[-1px] xl:text-[40px]";

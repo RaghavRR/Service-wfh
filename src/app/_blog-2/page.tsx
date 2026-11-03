@@ -31,13 +31,13 @@ export default function BlogPage() {
                   key={n}
                   aria-current={n === 1 ? "page" : undefined}
                   className={`grid size-12 cursor-pointer place-items-center rounded-full font-title text-sm transition-colors ${
-                    n === 1 ? "bg-title text-white" : "bg-smoke hover:bg-theme"
+                    n === 1 ? "bg-title text-white" : "border border-title/15 bg-white hover:bg-theme"
                   }`}
                 >
                   {n}
                 </span>
               ))}
-              <span className="grid size-12 cursor-pointer place-items-center rounded-full bg-smoke hover:bg-theme">
+              <span className="grid size-12 cursor-pointer place-items-center rounded-full border border-title/15 bg-white hover:bg-theme">
                 <ChevronRight className="size-5" />
               </span>
             </nav>

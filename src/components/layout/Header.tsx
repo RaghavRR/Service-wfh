@@ -41,7 +41,7 @@ export default function Header() {
       <header
         className={`sticky top-0 z-40 transition-[background-color,box-shadow] duration-500 ${
           overlay ? "bg-transparent" : "bg-white"
-        } ${scrolled ? "shadow-[0_10px_30px_rgba(10,12,0,0.06)]" : ""}`}
+        } ${scrolled ? "shadow-[0_1px_0_rgba(10,12,0,0.08)]" : ""}`}
       >
         <div
           className="container-x flex h-16 items-center justify-between gap-4 lg:h-[72px]"

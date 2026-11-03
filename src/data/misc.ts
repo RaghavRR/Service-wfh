@@ -56,13 +56,3 @@ export const counters = [
   { value: 139, label: "Satisfied Customers" },
 ];
 
-export const clients = [
-  "Northwind",
-  "Lumina",
-  "Apexo",
-  "Vortex",
-  "Kinetic",
-  "Orbitly",
-  "Zenith",
-  "Pulsar",
-];
